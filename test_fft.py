@@ -1,6 +1,7 @@
 #to store commands during ipython testing
 #Clk freq = 250 MHz, Input signal = 20 MHz
 #Using 12-input SNAP Board w/ RaspberryPi 
+#10 Stage biplex fft
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt
 s = corr.katcp_wrapper.FpgaClient('10.0.1.217')
@@ -67,6 +68,3 @@ plt.title('Phase Response of fft biplex block')
 plt.plot(f,phasetemp,'g')
 plt.grid(True)
 plt.show()
-
-
-
