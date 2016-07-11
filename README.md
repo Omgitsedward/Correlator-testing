@@ -4,3 +4,8 @@ To store Python commands used to check the models made.
 
 For Test_fft:
 To be used with test_fft_2016-7-6_1031.bof
+Demux mode 1, 4 input per adc
+
+For Test_pfb:
+To be used with test_pfb_2016-7-7_1219.bof
+Demux mode 1, 4 input per adc
