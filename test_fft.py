@@ -30,7 +30,7 @@ fdl = list(fd)
 temp = []
 i = 0
 
-while i < 1024:
+while i < 2048:
 	temp.append(fdl[i]+fdl[i+1]*1j)
 	i += 2
 
