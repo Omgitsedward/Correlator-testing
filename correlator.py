@@ -35,7 +35,7 @@ phaseaca = np.angle(aca)
 #Autocorrelation of b
 acb_data = s.read('ac_b',8192)
 acb = struct.unpack('>1024q',acb_data)
-acb = np.asarrau(acb)
+acb = np.asarray(acb)
 magacb = abs(acb)
 phaseacb = np.angle(acb)
 
