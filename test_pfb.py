@@ -23,10 +23,10 @@ fft_data = s.read('fft_data',8192)
 
 fd = struct.unpack('>2048l',fft_data)
 fd = np.asarray(fd)
-fdl = list[fd]
+fdl = list(fd)
 temp = []
 i = 0
-while i < 1024:
+while i < 2048:
 	temp.append(fdl[i]+fdl[i+1]*1j)
 	i += 2
 	
