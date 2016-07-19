@@ -2,7 +2,7 @@
 #Clk Freq = 250 MHz, Input signal freq = 20 Mhz at 3.0 dBm
 #Using 12-input SNAP Board w/ RaspberryPi 
 #10 stage biplex fft
-#4-tap 1024-point polyphase filter bank
+#8-tap 1024-point polyphase filter bank
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt
 s = corr.katcp_wrapper.FpgaClient('10.0.1.217')
