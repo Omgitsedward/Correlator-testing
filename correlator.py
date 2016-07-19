@@ -25,36 +25,60 @@ s.read_int('address_fft_b')
 
 f = np.linspace(0,1023,1024)
 
-#Autocorrelation of a
-aca_data = s.read('ac_a',8192)
-aca = struct.unpack('>1024q',aca_data)
+k = 0 
+p = 0
+
+while k < 100:
+	p = 0
+	s.write_int('trig',0)
+	s.write_int('trig',1)
+	s.write_int('trig',0)
+	while p < 5000:
+		p += 1
+	k += 1
+
+#Cross Correlation of a and b
+ccab = struct.unpack('>2048l',s.read('cc_ab',8192)
+ccab = np.asarray(ccab)
+ccabl = list(ccab)
+temp = []
+i = 0
+while i < 2048:
+	temp.append(ccabl[i] + ccabl[i+1]*1j)
+	i += 2
+	
+cc = np.asarray(temp)
+magcc = abs(cc)
+phasecc = np.angle(cc)
+
+#Autocorrelation of A
+aca = struct.unpack('>2048l',s.read('ac_a',8192)
 aca = np.asarray(aca)
+acal = list(aca)
+temp = []
+i = 0
+while i < 2048:
+	temp.append(acal[i] + acal[i+1]*1j)
+	i += 2
+	
+aca = np.asarray(temp)
 magaca = abs(aca)
 phaseaca = np.angle(aca)
 
-#Autocorrelation of b
-acb_data = s.read('ac_b',8192)
-acb = struct.unpack('>1024q',acb_data)
-acb = np.asarray(acb)
+#Autocorrelation of B
+acb = struct.unpack('>2048l',s.read('ac_b',8192)
+acb = np.asarray(ccab)
+acb = list(ccab)
+temp = []
+i = 0
+while i < 2048:
+	temp.append(acb[i] + acb[i+1]*1j)
+	i += 2
+	
+acb = np.asarray(temp)
 magacb = abs(acb)
 phaseacb = np.angle(acb)
 
-#Cross Correlation of a and b
-ccre_data = s.read('cc_ab_real',4096)
-ccim_data = s.read('cc_ab_imag',4096)
-ccre = struct.unpack('>1024l',ccre_data)
-ccim = struct.unpack('>1024l',ccim_data)
-ccrel = list(ccre)
-cciml = list(ccim)
-cc = []
-i = 0
-while i < 1024:
-	cc.append(ccrel[i]+cciml[i]*1j)
-	i += 1
-
-cc = np.asarray(cc)
-magcc = abs(cc)
-phasecc = np.angle(cc)
 
 plt.figure(1)
 plt.title('Autocorrelation of Antenna A')
