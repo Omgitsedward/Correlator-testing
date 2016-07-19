@@ -28,7 +28,8 @@ f = np.linspace(0,1023,1024)
 k = 0 
 p = 0
 
-while k < 100:
+#Controls number of accumulations with k
+while k < 2000:
 	p = 0
 	s.write_int('trig',0)
 	s.write_int('trig',1)
