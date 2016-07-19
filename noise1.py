@@ -34,12 +34,12 @@ while k < 2000:
 	s.write_int('trig',0)
 	s.write_int('trig',1)
 	s.write_int('trig',0)
-	while p < 5000:
+	while p < 10000:
 		p += 1
 	k += 1
 
 #Cross Correlation of a and b
-ccab = struct.unpack('>2048l',s.read('cc_ab',8192)
+ccab = struct.unpack('>2048q',s.read('cc_ab',16384)
 ccab = np.asarray(ccab)
 ccabl = list(ccab)
 temp = []
@@ -53,7 +53,7 @@ magcc = abs(cc)
 phasecc = np.angle(cc)
 
 #Autocorrelation of A
-aca = struct.unpack('>2048l',s.read('ac_a',8192)
+aca = struct.unpack('>2048q',s.read('ac_a',16384)
 aca = np.asarray(aca)
 acal = list(aca)
 temp = []
@@ -67,7 +67,7 @@ magaca = abs(aca)
 phaseaca = np.angle(aca)
 
 #Autocorrelation of B
-acb = struct.unpack('>2048l',s.read('ac_b',8192)
+acb = struct.unpack('>2048q',s.read('ac_b',16384)
 acb = np.asarray(ccab)
 acbl = list(ccab)
 temp = []
