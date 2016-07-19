@@ -39,7 +39,7 @@ while k < 2000:
 	k += 1
 
 #Cross Correlation of a and b
-ccab = struct.unpack('>2048q',s.read('cc_ab',16384)
+ccab = struct.unpack('>2048q',s.read('cc_ab',16384))
 ccab = np.asarray(ccab)
 ccabl = list(ccab)
 temp = []
