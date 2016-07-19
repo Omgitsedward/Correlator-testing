@@ -69,11 +69,11 @@ phaseaca = np.angle(aca)
 #Autocorrelation of B
 acb = struct.unpack('>2048l',s.read('ac_b',8192)
 acb = np.asarray(ccab)
-acb = list(ccab)
+acbl = list(ccab)
 temp = []
 i = 0
 while i < 2048:
-	temp.append(acb[i] + acb[i+1]*1j)
+	temp.append(acbl[i] + acbl[i+1]*1j)
 	i += 2
 	
 acb = np.asarray(temp)
