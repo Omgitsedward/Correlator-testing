@@ -34,24 +34,21 @@ magfd2 = abs(fd2)
 phasefd2 = np.angle(fd2)*180/np.pi
 
 #Autocorrelation of A
-aca = struct.unpack('>2048q',s.read('ac_a',16384))
-aca = np.asarray(aca)
+aca = np.asarray(struct.unpack('>2048q',s.read('ac_a',16384)))
 acal = list(aca)
 aca = np.asarray(splicing(acal))
 magaca = abs(aca)
 phaseaca = np.angle(aca)*180/np.pi
 
 #Autocorrelation of B
-acb = struct.unpack('>2048q',s.read('ac_b',16384))
-acb = np.asarray(ccab)
+acb = np.asarray(struct.unpack('>2048q',s.read('ac_b',16384)))
 acbl = list(ccab)
 acb = np.asarray(splicing(acbl))
 magacb = abs(acb)
 phaseacb = np.angle(acb)*180/np.pi
 
 #Cross Correlation of a and b
-ccab = struct.unpack('>2048q',s.read('cc_ab',16384))
-ccab = np.asarray(ccab)
+ccab = np.asarray(struct.unpack('>2048q',s.read('cc_ab',16384)))
 ccabl = list(ccab)
 cc = np.asarray(splicing(ccabl))
 magcc = abs(cc)
