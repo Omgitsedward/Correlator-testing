@@ -43,7 +43,7 @@ if __name__ == '__main__':
 	antb = args.antb
 	iteration = args.iteration 
 
-s = corr.katcp_wrapper.FpgaClient(host)
+s = corr.katcp_wrapper.FpgaClient(kwargs['host'])
 s.write_int('shift',shift)
 
 #Antenna Selection
