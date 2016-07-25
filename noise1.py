@@ -3,7 +3,7 @@
 #Using 12-input SNAP Board w/ RaspberryPi 
 #10 stage biplex fft
 #8-tap 1024-point polyphase filter bank
-
+#Add Host selection
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
 from argparse import ArgumentParser
@@ -40,28 +40,33 @@ def accumulation(n):
 			p += 1
 		k += 1
 
+print "Connecting to Fpga"
 s = corr.katcp_wrapper.FpgaClient('10.0.1.217',7147,timeout = 10)
 time.sleep(1)
 if s.is_connected():
-	print "ok"
+	print "Connected"
 else:
 	print "not connecting"
+	
 f = np.linspace(0,1023,1024)
-
+print "Setting Shift value"
 s.write_int('shift',shift)
 
 #Antenna Selection
+print "Selecting Antennas"
 s.write_int('antenna_a',anta)
 s.write_int('antenna_b',antb)
-
+print "Starting accumulation process"
 accumulation(iteration)
 
+print "Reading Adc Data"
 #Adc Data Antenna A
 ad1 = np.asarray(struct.unpack('>1024b',s.read('adc_data1',1024)))
 
 #Adc Data Antenna B
 ad2 = np.asarray(struct.unpack('>1024b',s.read('adc_data2',1024)))
 
+print "Reading Fft Data"
 #Fft Data Antenna A
 fft1 = np.asarray(struct.unpack('>2048l',s.read('fft_data1',8192)))
 fft1l = list(fft1)
@@ -76,6 +81,7 @@ fd2 = splicing(fft2l)
 magfd2 = abs(fd2)
 phasefd2 = np.angle(fd2)*180/np.pi
 
+print "Reading Correlation Data"
 #Autocorrelation of A
 aca = np.asarray(struct.unpack('>2048q',s.read('ac_a',16384)))
 acal = list(aca)
@@ -97,6 +103,7 @@ cc = splicing(ccabl)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
 
+print "Plotting Data"
 #Plots of Data
 #Adc Plot
 plt.figure(1)
