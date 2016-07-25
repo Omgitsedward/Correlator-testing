@@ -85,7 +85,7 @@ phaseaca = np.angle(aca)*180/np.pi
 
 #Autocorrelation of B
 acb = np.asarray(struct.unpack('>2048q',s.read('ac_b',16384)))
-acbl = list(ccab)
+acbl = list(acb)
 acb = splicing(acbl)
 magacb = abs(acb)
 phaseacb = np.angle(acb)*180/np.pi
