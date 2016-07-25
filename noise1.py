@@ -5,7 +5,6 @@
 #8-tap 1024-point polyphase filter bank
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt
-import time, sys, logging, optparse.OptionParser as p
 
 #Merges real and imaginary parts of data into a single number
 def splicing(x):
@@ -28,16 +27,31 @@ def accumulation(n):
 			p += 1
 		k += 1
 
+if __name__ == '__main__':
+	from argparse import ArgumentParser
+	p = ArgumentParser(description = 'python noise1.py [options] ')
+	p.add_argument('host', type = str, default = 'rpirachel', help = 'specify host name')
+	p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
+	p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
+	p.add_argument('-b', '--antb', dest = 'antb', type = int, default = 4, help = 'set second antenna to be correlated')
+	p.add_argument('-i', '--iteration', dest = 'iteration', type = int, default = 1000, help = 'set accumulation number')
+	
+	args = p.parse_args()
+	host = args.host
+	shift = args.shift
+	anta = args.anta
+	antb = args.antb
+	iteration = args.iteration 
 
-s = corr.katcp_wrapper.FpgaClient('10.0.1.217')
-s.write_int('shift',961)
+s = corr.katcp_wrapper.FpgaClient(host)
+s.write_int('shift',shift)
 
 #Antenna Selection
-s.write_int('antenna_a',0)
-s.write_int('antenna_b',4)
+s.write_int('antenna_a',anta)
+s.write_int('antenna_b',antb)
 
 f = np.linspace(0,1023,1024)
-accumulation(10000)
+accumulation(iteration)
 
 #Adc Data Antenna A
 ad1 = np.asarray(struct.unpack('>1024b',s.read('adc_data1',1024)))
@@ -87,12 +101,13 @@ plt.title('Adc Data')
 
 plt.subplot(211)
 plt.title('Antenna A')
-plt.plot(f,ad1,'k')
+plt.plot(f,ad1,'c')
+plt.grid(True)
 
 plt.subplot(212)
 plt.title('Antenna B')
-plt.plot(f,ad2,'k')
-plt.show()
+plt.plot(f,ad2,'g')
+plt.grid(True)
 
 #Fft Data plots
 plt.figure(2)
@@ -100,18 +115,25 @@ plt.title('Fft Data')
 
 plt.subplot(411)
 plt.title('Fft of Antenna A')
-plt.plot(f,magfd1,'k')
+plt.plot(f,magfd1,'c')
+plt.ylabel('Power (Arbitrary Units)')
+plt.grid(True)
 
 plt.subplot(412)
-plt.plot(f,phasefd1,'k')
+plt.plot(f,phasefd1,'c')
+plt.ylabel('Phase in Degrees')
+plt.grid(True)
 
 plt.subplot(413)
 plt.title('Fft of Antenna B')
-plt.plot(f,magfd2,'k')
+plt.plot(f,magfd2,'g')
+plt.ylabel('Power (Arbitrary Units)')
+plt.grid(True)
 
 plt.subplot(414)
-plt.plot(f,phasefd2,'k')
-plt.show()
+plt.plot(f,phasefd2,'g')
+plt.ylabel('Phase in Degrees')
+plt.grid(True)
 
 #Correlation Plots
 plt.figure(3)
@@ -128,23 +150,21 @@ plt.title('Phase Response of AC of A')
 plt.plot(f,phaseaca,'c')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
-plt.show()
 
 plt.figure(4)
 plt.title('Autocorrelation of Antenna B')
 
 plt.subplot(211)
 plt.title('Magnitude Response of AC of B')
-plt.plot(f,magacb,'m')
+plt.plot(f,magacb,'g')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
 plt.title('Phase Response of AC of B')
-plt.plot(f,phaseacb,'m')
+plt.plot(f,phaseacb,'g')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
-plt.show()
 
 plt.figure(5)
 plt.title('Cross Correlation of Antennas A & B')
