@@ -36,6 +36,8 @@ def accumulation(n):
 		s.write_int('trig',0)
 		s.write_int('trig',1)
 		s.write_int('trig',0)
+		if k == n/2:
+			print "Halfway"
 		while p < 8192:
 			p += 1
 		k += 1
@@ -46,18 +48,22 @@ time.sleep(1)
 if s.is_connected():
 	print "Connected"
 else:
-	print "not connecting"
+	print "Not connected"
 	
 f = np.linspace(0,1023,1024)
 print "Setting Shift value"
 s.write_int('shift',shift)
+print "Done"
 
 #Antenna Selection
 print "Selecting Antennas"
 s.write_int('antenna_a',anta)
 s.write_int('antenna_b',antb)
+print "Done"
+
 print "Starting accumulation process"
 accumulation(iteration)
+print "Done"
 
 print "Reading Adc Data"
 #Adc Data Antenna A
@@ -65,6 +71,7 @@ ad1 = np.asarray(struct.unpack('>1024b',s.read('adc_data1',1024)))
 
 #Adc Data Antenna B
 ad2 = np.asarray(struct.unpack('>1024b',s.read('adc_data2',1024)))
+print "Done"
 
 print "Reading Fft Data"
 #Fft Data Antenna A
@@ -80,6 +87,7 @@ fft2l = list(fft2)
 fd2 = splicing(fft2l)
 magfd2 = abs(fd2)
 phasefd2 = np.angle(fd2)*180/np.pi
+print "Done"
 
 print "Reading Correlation Data"
 #Autocorrelation of A
@@ -102,6 +110,7 @@ ccabl = list(ccab)
 cc = splicing(ccabl)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
+print "Done"
 
 print "Plotting Data"
 #Plots of Data
