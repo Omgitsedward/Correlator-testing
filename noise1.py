@@ -41,6 +41,10 @@ def accumulation(n):
 		k += 1
 
 s = corr.katcp_wrapper.FpgaClient('10.0.1.217')
+if s.is_connected():
+	print "ok"
+else:
+	print "not connecting"
 f = np.linspace(0,1023,1024)
 
 s.write_int('shift',shift)
