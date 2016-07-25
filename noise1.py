@@ -65,7 +65,7 @@ print "Starting accumulation process"
 accumulation(iteration)
 print "Done"
 
-if s.read_int('overflow')
+if s.read_int('overflow'):
 	print "Overflow"
 
 print "Reading Adc Data"
