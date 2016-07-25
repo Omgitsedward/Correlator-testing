@@ -65,14 +65,14 @@ ad2 = np.asarray(struct.unpack('>1024b',s.read('adc_data2',1024)))
 #Fft Data Antenna A
 fft1 = np.asarray(struct.unpack('>2048l',s.read('fft_data1',8192)))
 fft1l = list(fft1)
-fd1 = splicing(fftl1)
+fd1 = splicing(fft1l)
 magfd1 = abs(fd1)
 phasefd1 = np.angle(fd1)*180/np.pi
 
 #Fft Data Antenna B
 fft2 = np.asarray(struct.unpack('>2048l',s.read('fft_data2',8192)))
 fft2l = list(fft2)
-fd2 = splicing(fftl2)
+fd2 = splicing(fft2l)
 magfd2 = abs(fd2)
 phasefd2 = np.angle(fd2)*180/np.pi
 
