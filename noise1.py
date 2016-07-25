@@ -4,7 +4,7 @@
 #10 stage biplex fft
 #8-tap 1024-point polyphase filter bank
 
-import corr, struct, numpy as np, matplotlib.pyplot as plt
+import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
 from argparse import ArgumentParser
 p = ArgumentParser(description = 'python noise1.py [options] ')
@@ -40,7 +40,8 @@ def accumulation(n):
 			p += 1
 		k += 1
 
-s = corr.katcp_wrapper.FpgaClient('10.0.1.217')
+s = corr.katcp_wrapper.FpgaClient('10.0.1.217',7147,timeout = 10)
+time.sleep(1)
 if s.is_connected():
 	print "ok"
 else:
