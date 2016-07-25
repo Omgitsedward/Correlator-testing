@@ -6,20 +6,18 @@
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt
 
-if __name__ == '__main__':
-	from argparse import ArgumentParser
-	p = ArgumentParser(description = 'python noise1.py [options] ')
-	p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
-	p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
-	p.add_argument('-b', '--antb', dest = 'antb', type = int, default = 4, help = 'set second antenna to be correlated')
-	p.add_argument('-i', '--iteration', dest = 'iteration', type = int, default = 1000, help = 'set accumulation number')
-	
-	args = p.parse_args()
-	shift = args.shift
-	anta = args.anta
-	antb = args.antb
-	iteration = args.iteration 
+from argparse import ArgumentParser
+p = ArgumentParser(description = 'python noise1.py [options] ')
+p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
+p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
+p.add_argument('-b', '--antb', dest = 'antb', type = int, default = 4, help = 'set second antenna to be correlated')
+p.add_argument('-i', '--iteration', dest = 'iteration', type = int, default = 1000, help = 'set accumulation number')
 
+args = p.parse_args()
+shift = args.shift
+anta = args.anta
+antb = args.antb
+iteration = args.iteration 
 
 #Merges real and imaginary parts of data into a single number
 def splicing(x):
