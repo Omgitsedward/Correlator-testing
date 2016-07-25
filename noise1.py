@@ -65,6 +65,9 @@ print "Starting accumulation process"
 accumulation(iteration)
 print "Done"
 
+if s.read_int('overflow')
+	print "Overflow"
+
 print "Reading Adc Data"
 #Adc Data Antenna A
 ad1 = np.asarray(struct.unpack('>1024b',s.read('adc_data1',1024)))
