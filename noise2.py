@@ -128,6 +128,7 @@ ccabil = list(ccabi)
 cc = merge(ccabrl,ccabil)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
+print cc[0]
 print "Done"
 
 print "Plotting Data"
