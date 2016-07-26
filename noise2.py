@@ -38,7 +38,7 @@ def accumulation(n):
 		s.write_int('trig',0)
 		if k == n/2:
 			print "Halfway"
-		while p < 8192:
+		while p < 16384:
 			p += 1
 		k += 1
 
@@ -74,7 +74,7 @@ print "Starting accumulation process"
 accumulation(iteration)
 print "Done"
 
-if s.read_int('overflow'):
+if s.read_int('overflow') != 0:
 	print "Overflow"
 
 print "Reading Adc Data"
