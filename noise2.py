@@ -42,6 +42,15 @@ def accumulation(n):
 			p += 1
 		k += 1
 
+#to get the entire number out of the bram block (read as two 64-bit numbers while being a 128-bit number)
+def rebuild(d):
+	temp = []
+	i = 0
+	while i < 2048:
+		temp.append(d[i]<<64+d[i+1])
+		i+=2
+	return temp
+
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
 	temp = []
@@ -103,28 +112,28 @@ print "Done"
 
 print "Reading Correlation Data"
 #Autocorrelation of A
-acar = np.asarray(struct.unpack('>1024q',s.read('ac_a_real',8192)))
-acai = np.asarray(struct.unpack('>1024q',s.read('ac_a_imag',8192)))
-acarl = list(acar)
-acail = list(acai)
+acar = np.asarray(struct.unpack('>2048q',s.read('ac_a_real',16384)))
+acai = np.asarray(struct.unpack('>2048q',s.read('ac_a_imag',16384)))
+acarl = rebuild(list(acar))
+acail = rebuild(list(acai))
 aca = merge(acarl,acail)
 magaca = abs(aca)
 phaseaca = np.angle(aca)*180/np.pi
 
 #Autocorrelation of B
-acbr = np.asarray(struct.unpack('>1024q',s.read('ac_b_real',8192)))
-acbi = np.asarray(struct.unpack('>1024q',s.read('ac_b_imag',8192)))
-acbrl = list(acbr)
-acbil = list(acbi)
+acbr = np.asarray(struct.unpack('>2048q',s.read('ac_b_real',16384)))
+acbi = np.asarray(struct.unpack('>2048q',s.read('ac_b_imag',16384)))
+acbrl = rebuild(list(acbr))
+acbil = rebuild(list(acbi))
 acb = merge(acbrl,acbil)
 magacb = abs(acb)
 phaseacb = np.angle(acb)*180/np.pi
 
 #Cross Correlation of a and b
-ccabr = np.asarray(struct.unpack('>1024q',s.read('cc_ab_real',8192)))
-ccabi = np.asarray(struct.unpack('>1024q',s.read('cc_ab_imag',8192)))
-ccabrl = list(ccabr)
-ccabil = list(ccabi)
+ccabr = np.asarray(struct.unpack('>2048q',s.read('cc_ab_real',16384)))
+ccabi = np.asarray(struct.unpack('>2048q',s.read('cc_ab_imag',16384)))
+ccabrl = rebuild(list(ccabr))
+ccabil = rebuild(list(ccabi))
 cc = merge(ccabrl,ccabil)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
