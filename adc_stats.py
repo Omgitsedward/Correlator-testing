@@ -7,12 +7,13 @@ s.write_int('cnt_rst',0)
 s.write_int('cnt_rst',1)
 s.write_int('cnt_rst',0)
 
-s.read_int('address')
+address = s.read_int('address')
+print address
 
-adc_data = s.read('adc_data',1024)
-ad = struct.unpack('>1024b',adc_data)
+adc_data = s.read('adc_data',65536)
+ad = struct.unpack('>65536b',adc_data)
 ad = np.asarray(ad)
-time = np.linspace(0,1023,1024)
+time = np.linspace(0,65535,65536)
 
 sigma = np.sqrt(np.var(ad))
 print "Hey this one is sigma"
