@@ -7,8 +7,7 @@ s.write_int('cnt_rst',0)
 s.write_int('cnt_rst',1)
 s.write_int('cnt_rst',0)
 
-address = s.read_int('address')
-print address
+print s.read_int('address')
 
 adc_data = s.read('adc_data',65536)
 ad = struct.unpack('>65536b',adc_data)
@@ -25,10 +24,11 @@ print rms
 
 plt.figure(1)
 plt.title('adc data')
-plt.plot(time,ad,'k')
+plt.plot(time,ad,'ko')
+plt.axis([0,65536,-128,127])
 plt.grid(True)
 
 plt.figure(2)
-plt.hist(ad, bins=256) 
+plt.hist(ad, bins='auto') 
 plt.title("Histogram with 'auto' bins")
 plt.show()
