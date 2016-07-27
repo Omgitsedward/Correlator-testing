@@ -36,8 +36,12 @@ def accumulation(n):
 		s.write_int('trig',0)
 		s.write_int('trig',1)
 		s.write_int('trig',0)
-		if k == n/2:
-			print "Halfway"
+		if k == n/4:
+			print "Quarter way"
+		elif k == n/2:
+			print "Half way"
+		elif k == n*3/4:
+			print "3/4 of the way"
 		while p < 8192:
 			p += 1
 		k += 1
