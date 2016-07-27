@@ -7,7 +7,7 @@ s.write_int('cnt_rst',0)
 s.write_int('cnt_rst',1)
 s.write_int('cnt_rst',0)
 
-s.read_int('address_adc')
+s.read_int('address')
 
 adc_data = s.read('adc_data',1024)
 ad = struct.unpack('>1024b',adc_data)
