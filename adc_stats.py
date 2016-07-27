@@ -11,7 +11,7 @@ address = s.read_int('address')
 print address
 
 adc_data = s.read('adc_data',65536)
-ad = struct.unpack('<65536b',adc_data)
+ad = struct.unpack('>65536b',adc_data)
 ad = np.asarray(ad)
 time = np.linspace(0,65535,65536)
 
