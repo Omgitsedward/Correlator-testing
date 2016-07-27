@@ -29,6 +29,6 @@ plt.axis([0,65536,-128,127])
 plt.grid(True)
 
 plt.figure(2)
-plt.hist(ad, bins='auto') 
-plt.title("Histogram with 'auto' bins")
+plt.hist(ad, bins=256) 
+plt.title("Histogram with 256 bins")
 plt.show()
