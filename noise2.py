@@ -52,7 +52,7 @@ def rebuild(d):
 	temp = []
 	i = 0
 	while i < 2048:
-		temp.append(d[i]<<64+d[i+1])
+		temp.append(d[i+1]<<64+d[i])
 		i+=2
 	return temp
 
