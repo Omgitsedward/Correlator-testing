@@ -1,19 +1,20 @@
-#To store Python commands used during testing
-#Clk Freq = 250 MHz, Input signal freq = 20 Mhz at 3.0 dBm
+#Clk Freq = 250 MHz, Input signal freq = 75 Mhz at 0.0 dBm
 #Using 12-input SNAP Board w/ RaspberryPi 
 #10 stage biplex fft
-#8-tap 1024-point polyphase filter bank
-#Add Host selection
+#4-tap 1024-point polyphase filter bank
+#ADC stats added, host selection added
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
 from argparse import ArgumentParser
 p = ArgumentParser(description = 'python noise1.py [options] ')
+p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
 p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
 p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
 p.add_argument('-b', '--antb', dest = 'antb', type = int, default = 4, help = 'set second antenna to be correlated')
 p.add_argument('-i', '--iteration', dest = 'iteration', type = int, default = 1000, help = 'set accumulation number')
 
 args = p.parse_args()
+host = args.host
 shift = args.shift
 anta = args.anta
 antb = args.antb
@@ -64,40 +65,64 @@ def merge(x,y):
 		w += 1
 	return np.asarray(temp)
 
+#---------------------------------------------------------------------------
 print "Connecting to Fpga"
-s = corr.katcp_wrapper.FpgaClient('10.0.1.217',7147,timeout = 10)
+s = corr.katcp_wrapper.FpgaClient(host,7147,timeout = 10)
 time.sleep(1)
+
+#---------------------------------------------------------------------------
 if s.is_connected():
 	print "Connected"
 else:
 	print "Not connected"
-	
+
+#---------------------------------------------------------------------------	
 f = np.linspace(0,1023,1024)
+time = np.linspace(0,65535,65536)
+
+#---------------------------------------------------------------------------
 print "Setting Shift value"
 s.write_int('shift',shift)
 print "Done"
 
+#---------------------------------------------------------------------------
 #Antenna Selection
 print "Selecting Antennas"
 s.write_int('antenna_a',anta)
 s.write_int('antenna_b',antb)
 print "Done"
 
+#---------------------------------------------------------------------------
 print "Starting accumulation process"
 accumulation(iteration)
 print "Done"
 
+#---------------------------------------------------------------------------
 if s.read_int('overflow') != 0:
 	print "Overflow"
 
+#---------------------------------------------------------------------------
 print "Reading Adc Data"
 #Adc Data Antenna A
-ad1 = np.asarray(struct.unpack('>1024b',s.read('adc_data1',1024)))
+ad1 = np.asarray(struct.unpack('>65536b',s.read('adc_data1',65536)))
+sigma1 = np.sqrt(np.var(ad1))
+print "Hey this one is sigma antenna 1"
+print sigma1
+rms1 = np.sqrt(np.mean(np.square(ad1)))
+print "Hey this one is rms antenna 1"
+print rms1
 
 #Adc Data Antenna B
-ad2 = np.asarray(struct.unpack('>1024b',s.read('adc_data2',1024)))
+ad2 = np.asarray(struct.unpack('>65536b',s.read('adc_data2',65536)))
 print "Done"
+sigma2 = np.sqrt(np.var(ad2))
+print "Hey this one is sigma"
+print sigma2
+rms2 = np.sqrt(np.mean(np.square(ad2)))
+print "Hey this one is rms"
+print rms2
 
+#---------------------------------------------------------------------------
 print "Reading Fft Data"
 #Fft Data Antenna A
 fft1 = np.asarray(struct.unpack('>2048l',s.read('fft_data1',8192)))
@@ -114,6 +139,7 @@ magfd2 = abs(fd2)
 phasefd2 = np.angle(fd2)*180/np.pi
 print "Done"
 
+#---------------------------------------------------------------------------
 print "Reading Correlation Data"
 #Autocorrelation of A
 acar = np.asarray(struct.unpack('>2048q',s.read('ac_a_real',16384)))
@@ -144,44 +170,32 @@ phasecc = np.angle(cc)*180/np.pi
 print cc[0]
 print "Done"
 
+#---------------------------------------------------------------------------
 print "Plotting Data"
 #Plots of Data
-#Adc Plot
-plt.figure(1)
-plt.title('Adc Data')
-
-plt.subplot(211)
-plt.title('Antenna A')
-plt.plot(f,ad1,'c')
-plt.grid(True)
-
-plt.subplot(212)
-plt.title('Antenna B')
-plt.plot(f,ad2,'g')
-plt.grid(True)
-
 #Fft Data plots
-plt.figure(2)
+plt.figure(1)
 plt.title('Fft Data')
 
-plt.subplot(411)
+plt.subplot(211)
 plt.title('Fft of Antenna A')
 plt.plot(f,magfd1,'c')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
-plt.subplot(412)
+plt.subplot(212)
 plt.plot(f,phasefd1,'c')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
-plt.subplot(413)
+plt.figure(2)
+plt.subplot(211)
 plt.title('Fft of Antenna B')
 plt.plot(f,magfd2,'g')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
-plt.subplot(414)
+plt.subplot(212)
 plt.plot(f,phasefd2,'g')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
@@ -231,4 +245,24 @@ plt.title('Phase Response of CC of A & B')
 plt.plot(f,phasecc,'r')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
+
+plt.figure(6)
+plt.title('Adc Data Antenna 1')
+plt.plot(time,ad1,'c-')
+plt.axis([0,65536,-136,135])
+plt.grid(True)
+
+plt.figure(7)
+plt.hist(ad1, bins=256, 'c') 
+plt.title("Histogram of Antenna 1")
+
+plt.figure(8)
+plt.title('Adc Data Antenna 2')
+plt.plot(time,ad2,'g-')
+plt.axis([0,65536,-136,135])
+plt.grid(True)
+
+plt.figure(9)
+plt.hist(ad2, bins=256, 'g') 
+plt.title("Histogram of Antenna 2")
 plt.show()
