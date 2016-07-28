@@ -43,7 +43,7 @@ def accumulation(n):
 			print "Half way"
 		elif k == n*3/4:
 			print "3/4 of the way"
-		while p < 4096:
+		while p < 5024:
 			p += 1
 		k += 1
 
