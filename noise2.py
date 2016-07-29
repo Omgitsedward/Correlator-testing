@@ -3,8 +3,10 @@
 #10 stage biplex fft
 #4-tap 1024-point polyphase filter bank
 #ADC stats added, host selection added
+
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
+#--------------------------------------------------------------------------------------------------------------------------------------
 from argparse import ArgumentParser
 p = ArgumentParser(description = 'python noise2.py [options] ')
 p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
@@ -20,6 +22,7 @@ anta = args.anta
 antb = args.antb
 iteration = args.iteration 
 
+#--------------------------------------------------------------------------------------------------------------------------------------
 #Merges real and imaginary parts of fft data into a single number
 def splicing(x):
 	temp = []
