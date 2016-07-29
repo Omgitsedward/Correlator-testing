@@ -98,8 +98,8 @@ accumulation(iteration)
 print "Done"
 
 #---------------------------------------------------------------------------
-if s.read_int('overflow') != 0:
-	print "Overflow"
+overflow = s.read_int('overflow')
+print overflow
 
 #---------------------------------------------------------------------------
 print "Reading Adc Data"
