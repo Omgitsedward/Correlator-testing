@@ -6,7 +6,7 @@
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
 from argparse import ArgumentParser
-p = ArgumentParser(description = 'python noise1.py [options] ')
+p = ArgumentParser(description = 'python noise2.py [options] ')
 p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
 p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
 p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
