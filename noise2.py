@@ -47,15 +47,6 @@ def accumulation(n):
 			p += 1
 		k += 1
 
-#to get the entire number out of the bram block (read as two 64-bit numbers while being a 128-bit number)
-def rebuild(d):
-	temp = []
-	i = 0
-	while i < 2048:
-		temp.append(d[i]<<64+d[i+1])
-		i+=2
-	return temp
-
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
 	temp = []
