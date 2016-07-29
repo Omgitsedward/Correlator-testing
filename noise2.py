@@ -142,28 +142,28 @@ print "Done"
 #---------------------------------------------------------------------------
 print "Reading Correlation Data"
 #Autocorrelation of A
-acar = np.asarray(struct.unpack('>2048q',s.read('ac_a_real',16384)))
-acai = np.asarray(struct.unpack('>2048q',s.read('ac_a_imag',16384)))
-acarl = rebuild(list(acar))
-acail = rebuild(list(acai))
+acar = np.asarray(struct.unpack('>1024q',s.read('ac_a_real',8192)))
+acai = np.asarray(struct.unpack('>1024q',s.read('ac_a_imag',8192)))
+acarl = list(acar)
+acail = list(acai)
 aca = merge(acarl,acail)
 magaca = abs(aca)
 phaseaca = np.angle(aca)*180/np.pi
 
 #Autocorrelation of B
-acbr = np.asarray(struct.unpack('>2048q',s.read('ac_b_real',16384)))
-acbi = np.asarray(struct.unpack('>2048q',s.read('ac_b_imag',16384)))
-acbrl = rebuild(list(acbr))
-acbil = rebuild(list(acbi))
+acbr = np.asarray(struct.unpack('>1024q',s.read('ac_b_real',8192)))
+acbi = np.asarray(struct.unpack('>1024q',s.read('ac_b_imag',8192)))
+acbrl = list(acbr)
+acbil = list(acbi)
 acb = merge(acbrl,acbil)
 magacb = abs(acb)
 phaseacb = np.angle(acb)*180/np.pi
 
 #Cross Correlation of a and b
-ccabr = np.asarray(struct.unpack('>2048q',s.read('cc_ab_real',16384)))
-ccabi = np.asarray(struct.unpack('>2048q',s.read('cc_ab_imag',16384)))
-ccabrl = rebuild(list(ccabr))
-ccabil = rebuild(list(ccabi))
+ccabr = np.asarray(struct.unpack('>1024q',s.read('cc_ab_real',8192)))
+ccabi = np.asarray(struct.unpack('>1024q',s.read('cc_ab_imag',8192)))
+ccabrl = list(ccabr)
+ccabil = list(ccabi)
 cc = merge(ccabrl,ccabil)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
