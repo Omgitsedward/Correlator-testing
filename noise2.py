@@ -52,13 +52,11 @@ def accumulation(n):
 
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
-	temp = []
-	w = 0
-	while w < 1024:
-		temp.append(x[w] + y[w]*1j)
-		w += 1
+	temp = zeros(0,1023)
+	for w in range(0,1024):
+		temp[w] = x[w] + y[w]*1j
 	return np.asarray(temp)
-
+	
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Connecting to Fpga"
 s = corr.katcp_wrapper.FpgaClient(host,7147,timeout = 10)
