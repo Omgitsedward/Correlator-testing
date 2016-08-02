@@ -117,10 +117,10 @@ print rms1
 ad2 = np.asarray(struct.unpack('>65536b',s.read('adc_data2',65536)))
 print "Done"
 sigma2 = np.sqrt(np.var(ad2))
-print "Hey this one is sigma"
+print "Hey this one is sigma antenna 2"
 print sigma2
 rms2 = np.sqrt(np.mean(np.square(ad2)))
-print "Hey this one is rms"
+print "Hey this one is rms antenna 2"
 print rms2
 
 #--------------------------------------------------------------------------------------------------------------------------------------
