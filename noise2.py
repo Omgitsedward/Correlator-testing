@@ -50,6 +50,7 @@ def accumulation(n):
 			p += 1
 		k += 1
 
+
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
 	temp = []
@@ -90,6 +91,7 @@ print "Done"
 print "Starting accumulation process"
 s.write_int('acc_len',length)
 print "Done"
+time.sleep(10)
 acc_num = s.read_int('acc_num')
 print acc_num
 
