@@ -1,6 +1,6 @@
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
-s = corr.katcp_wrapper.FpgaClient('10.0.1.217',7147,timeout = 10)
+s = corr.katcp_wrapper.FpgaClient('rpirachel',7147,timeout = 10)
 time.sleep(1)
 
 s.write_int('cnt_rst',0)
