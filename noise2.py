@@ -97,16 +97,16 @@ s.write_int('trig',1)
 s.write_int('trig',0)
 
 acc_num = s.read_int('acc_num')
-	while s.read_int('acc_num') == acc_num:
-		time.sleep(0.1)
+while s.read_int('acc_num') == acc_num:
+	time.sleep(0.1)
 print acc_num
 acc_num = s.read_int('acc_num')
-	while s.read_int('acc_num') == acc_num:
-		time.sleep(0.1)
+while s.read_int('acc_num') == acc_num:
+	time.sleep(0.1)
 print acc_num
 acc_num = s.read_int('acc_num')
-	while s.read_int('acc_num') == acc_num:
-		time.sleep(0.1)
+while s.read_int('acc_num') == acc_num:
+	time.sleep(0.1)
 print acc_num
 
 
