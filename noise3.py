@@ -28,7 +28,7 @@ def splicing(x):
 	temp = []
 	z = 0
 	while z < 2048:
-		temp.append(x[z] + x[z+1]*1j)
+		temp.append(x[z+1] + x[z]*1j)
 		z += 2
 	return np.asarray(temp)
 
