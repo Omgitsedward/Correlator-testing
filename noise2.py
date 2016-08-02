@@ -73,7 +73,7 @@ else:
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 f = np.linspace(0,1023,1024)
-time = np.linspace(0,65535,65536)
+t = np.linspace(0,65535,65536)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Setting Shift value"
@@ -253,7 +253,7 @@ plt.grid(True)
 
 plt.figure(6)
 plt.title('Adc Data Antenna 1')
-plt.plot(time,ad1,'c-')
+plt.plot(t,ad1,'c-')
 plt.axis([0,65536,-136,135])
 plt.grid(True)
 
@@ -263,7 +263,7 @@ plt.title("Histogram of Antenna 1")
 
 plt.figure(8)
 plt.title('Adc Data Antenna 2')
-plt.plot(time,ad2, 'g-')
+plt.plot(t,ad2, 'g-')
 plt.axis([0,65536,-136,135])
 plt.grid(True)
 
