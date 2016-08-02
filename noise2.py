@@ -52,9 +52,11 @@ def accumulation(n):
 
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
-	temp = zeros(0,1023)
-	for w in range(0,1024):
-		temp[w] = x[w] + y[w]*1j
+	temp = []
+	w = 0
+	while w < 1024:
+		temp.append(x[w] + y[w]*1j)
+		w += 1
 	return np.asarray(temp)
 	
 #--------------------------------------------------------------------------------------------------------------------------------------
