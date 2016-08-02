@@ -24,8 +24,8 @@ print rms
 
 plt.figure(1)
 plt.title('adc data')
-plt.plot(time,ad,'k-')
-plt.axis([0,65536,-136,135])
+plt.plot(time[0:1023],ad[0:1023],'ko')
+plt.axis([0,1023,-136,135])
 plt.grid(True)
 
 plt.figure(2)
