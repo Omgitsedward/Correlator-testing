@@ -86,7 +86,7 @@ print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Starting accumulation process"
-s.write_int('acc_len',acc_len)
+s.write_int('acc_len',length)
 print "Done"
 acc_num = s.read_int('acc_num')
 print acc_num
