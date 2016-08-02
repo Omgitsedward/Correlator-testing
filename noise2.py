@@ -90,15 +90,25 @@ print "Done"
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Starting accumulation process"
 s.write_int('acc_len',length)
-time.sleep(10)
-print "Done"
-acc_num = s.read_int('acc_num')
-print acc_num
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 s.write_int('trig',0)
 s.write_int('trig',1)
 s.write_int('trig',0)
+
+acc_num = s.read_int('acc_num')
+	while s.read_int('acc_num') == acc_num:
+		time.sleep(0.1)
+print acc_num
+acc_num = s.read_int('acc_num')
+	while s.read_int('acc_num') == acc_num:
+		time.sleep(0.1)
+print acc_num
+acc_num = s.read_int('acc_num')
+	while s.read_int('acc_num') == acc_num:
+		time.sleep(0.1)
+print acc_num
+
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 overflow = s.read_int('overflow')
