@@ -28,28 +28,9 @@ def splicing(x):
 	temp = []
 	z = 0
 	while z < 2048:
-		temp.append(x[z+1] + x[z]*1j)
+		temp.append(x[z] + x[z+1]*1j)
 		z += 2
 	return np.asarray(temp)
-
-#Controls number of accumulations with n
-def accumulation(n):
-	k = 0
-	while k < n:
-		p = 0
-		s.write_int('trig',0)
-		s.write_int('trig',1)
-		s.write_int('trig',0)
-		if k == n/4:
-			print "Quarter way"
-		elif k == n/2:
-			print "Half way"
-		elif k == n*3/4:
-			print "3/4 of the way"
-		while p < 8192:
-			p += 1
-		k += 1
-
 
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
