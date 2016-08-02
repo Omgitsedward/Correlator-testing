@@ -13,14 +13,14 @@ p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the h
 p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
 p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
 p.add_argument('-b', '--antb', dest = 'antb', type = int, default = 4, help = 'set second antenna to be correlated')
-p.add_argument('-i', '--iteration', dest = 'iteration', type = int, default = 1000, help = 'set accumulation number')
+p.add_argument('-l', '--length', dest = 'length', type = int, default = 1000, help = 'set # of spectra to be accumulated')
 
 args = p.parse_args()
 host = args.host
 shift = args.shift
 anta = args.anta
 antb = args.antb
-iteration = args.iteration 
+length = args.length 
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Merges real and imaginary parts of fft data into a single number
@@ -86,8 +86,10 @@ print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Starting accumulation process"
-accumulation(iteration)
+s.write_int('acc_len',acc_len)
 print "Done"
+acc_num = s.read_int('acc_num')
+print acc_num
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 overflow = s.read_int('overflow')
