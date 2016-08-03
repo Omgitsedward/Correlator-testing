@@ -161,6 +161,9 @@ ccabil = list(ccabi)
 cc = merge(ccabrl,ccabil)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
+
+corrco = magcc / np.sqrt(magaca*magacb)
+
 print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
@@ -239,6 +242,7 @@ plt.plot(f,phasecc,'r')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
+#ADC Data plots
 plt.figure(6)
 plt.title('Adc Data Antenna 1')
 plt.plot(t,ad1,'c-')
@@ -258,4 +262,9 @@ plt.grid(True)
 plt.figure(9)
 plt.hist(ad2, bins=256) 
 plt.title("Histogram of Antenna 2")
+
+plt.figure(10) 
+plt.title('Correlation Coefficient')
+plt.plot(f,corrco,'m')
+plt.grid(True)
 plt.show()
