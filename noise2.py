@@ -161,9 +161,9 @@ ccabil = list(ccabi)
 cc = merge(ccabrl,ccabil)
 magcc = abs(cc)
 phasecc = np.angle(cc)*180/np.pi
-print cc[0]
-print cc[511]
-print cc[1023]
+
+corrco = magcc / np.sqrt(magaca*magacb)
+
 print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
@@ -261,4 +261,10 @@ plt.grid(True)
 plt.figure(9)
 plt.hist(ad2, bins=256) 
 plt.title("Histogram of Antenna 2")
+plt.show()
+
+plt.figure(10) 
+plt.title('Correlation Coefficient')
+plt.plot(f,corrco,'m')
+plt.grid(True)
 plt.show()
