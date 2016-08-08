@@ -11,15 +11,11 @@ from argparse import ArgumentParser
 p = ArgumentParser(description = 'python noise2.py [options] ')
 p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
 p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
-p.add_argument('-a', '--anta', dest = 'anta', type = int, default = 0, help = 'set first antenna to be correlated')
-p.add_argument('-b', '--antb', dest = 'antb', type = int, default = 4, help = 'set second antenna to be correlated')
 p.add_argument('-l', '--length', dest = 'length', type = int, default = 2e6, help = 'set # of spectra to be accumulated')
 
 args = p.parse_args()
 host = args.host
 shift = args.shift
-anta = args.anta
-antb = args.antb
 length = args.length 
 
 #--------------------------------------------------------------------------------------------------------------------------------------
@@ -62,13 +58,6 @@ s.write_int('shift',shift)
 print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-#Antenna Selection
-print "Selecting Antennas"
-s.write_int('antenna_a',anta)
-s.write_int('antenna_b',antb)
-print "Done"
-
-#--------------------------------------------------------------------------------------------------------------------------------------
 print "Starting accumulation process"
 s.write_int('acc_len',length)
 
@@ -90,7 +79,6 @@ while s.read_int('acc_num') == acc_num:
 	time.sleep(0.1)
 print acc_num
 
-
 #--------------------------------------------------------------------------------------------------------------------------------------
 overflow = s.read_int('overflow')
 print overflow
@@ -98,7 +86,7 @@ print overflow
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Reading Adc Data"
 #Adc Data Antenna A
-ad1 = np.asarray(struct.unpack('>65536b',s.read('adc_data1',65536)))
+ad1 = np.asarray(struct.unpack('>65536b',s.read('adc_data0',65536)))
 sigma1 = np.sqrt(np.var(ad1))
 print "Hey this one is sigma antenna 1"
 print sigma1
@@ -119,11 +107,11 @@ print rms2
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Reading Fft Data"
 #Fft Data Antenna A
-fft1 = np.asarray(struct.unpack('>2048l',s.read('fft_data1',8192)))
-fft1l = list(fft1)
-fd1 = splicing(fft1l)
-magfd1 = abs(fd1)
-phasefd1 = np.angle(fd1)*180/np.pi
+fft0 = np.asarray(struct.unpack('>2048l',s.read('fft_data0',8192)))
+fft0l = list(fft0)
+fd0 = splicing(fft0l)
+magfd0 = abs(fd0)
+phasefd0 = np.angle(fd0)*180/np.pi
 
 #Fft Data Antenna B
 fft2 = np.asarray(struct.unpack('>2048l',s.read('fft_data2',8192)))
@@ -136,33 +124,25 @@ print "Done"
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Reading Correlation Data"
 #Autocorrelation of A
-acar = np.asarray(struct.unpack('>1024q',s.read('ac_a_real',8192)))
-acai = np.asarray(struct.unpack('>1024q',s.read('ac_a_imag',8192)))
-acarl = list(acar)
-acail = list(acai)
-aca = merge(acarl,acail)
-magaca = abs(aca)
-phaseaca = np.angle(aca)*180/np.pi
+ac0 = np.asarray(struct.unpack('>512q',s.read('ac_a0_real',4096)))
+magac0 = abs(ac0)
+phaseac0 = np.angle(ac0)*180/np.pi
 
 #Autocorrelation of B
-acbr = np.asarray(struct.unpack('>1024q',s.read('ac_b_real',8192)))
-acbi = np.asarray(struct.unpack('>1024q',s.read('ac_b_imag',8192)))
-acbrl = list(acbr)
-acbil = list(acbi)
-acb = merge(acbrl,acbil)
-magacb = abs(acb)
-phaseacb = np.angle(acb)*180/np.pi
+ac2 = np.asarray(struct.unpack('>512q',s.read('ac_a2_real',4096)))
+magac2 = abs(ac2)
+phaseac2 = np.angle(ac2)*180/np.pi
 
 #Cross Correlation of a and b
-ccabr = np.asarray(struct.unpack('>1024q',s.read('cc_ab_real',8192)))
-ccabi = np.asarray(struct.unpack('>1024q',s.read('cc_ab_imag',8192)))
-ccabrl = list(ccabr)
-ccabil = list(ccabi)
-cc = merge(ccabrl,ccabil)
-magcc = abs(cc)
-phasecc = np.angle(cc)*180/np.pi
+cc02r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_real',4096)))
+cc02i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_imag',4096)))
+cc02rl = list(cc02r)
+cc02il = list(cc02i)
+cc02 = merge(cc02rl,cc02il)
+magcc02 = abs(cc02)
+phasecc02 = np.angle(cc02)*180/np.pi
 
-corrco = magcc / np.sqrt(magaca*magacb)
+corrco02 = magcc02 / np.sqrt(magac0*magac2)
 
 print "Done"
 
@@ -175,12 +155,12 @@ plt.title('Fft Data')
 
 plt.subplot(211)
 plt.title('Fft of Antenna A')
-plt.plot(f,magfd1,'c')
+plt.plot(f,magfd0,'c')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
-plt.plot(f,phasefd1,'c')
+plt.plot(f,phasefd0,'c')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
@@ -202,13 +182,13 @@ plt.title('Autocorrelation of Antenna A')
 
 plt.subplot(211)
 plt.title('Magnitude Response of AC of A')
-plt.plot(f,magaca,'c')
+plt.plot(f,magac0,'c')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
 plt.title('Phase Response of AC of A')
-plt.plot(f,phaseaca,'c')
+plt.plot(f,phaseac0,'c')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
@@ -217,41 +197,41 @@ plt.title('Autocorrelation of Antenna B')
 
 plt.subplot(211)
 plt.title('Magnitude Response of AC of B')
-plt.plot(f,magacb,'g')
+plt.plot(f,magac2,'g')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
 plt.title('Phase Response of AC of B')
-plt.plot(f,phaseacb,'g')
+plt.plot(f,phaseac2,'g')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
 plt.figure(5)
-plt.title('Cross Correlation of Antennas A & B')
+plt.title('Cross Correlation of Antennas 0 & 2')
 
 plt.subplot(211)
-plt.title('Magnitude Response of CC of A & B')
-plt.plot(f,magcc,'r')
+plt.title('Magnitude Response of CC of 0 & 2')
+plt.plot(f,magcc02,'r')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
-plt.title('Phase Response of CC of A & B')
-plt.plot(f,phasecc,'r')
+plt.title('Phase Response of CC of 0 & 2')
+plt.plot(f,phasecc02,'r')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
 #ADC Data plots
 plt.figure(6)
-plt.title('Adc Data Antenna 1')
-plt.plot(t,ad1,'c-')
+plt.title('Adc Data Antenna 0')
+plt.plot(t,ad0,'c-')
 plt.axis([0,65536,-136,135])
 plt.grid(True)
 
 plt.figure(7)
-plt.hist(ad1, bins=256) 
-plt.title("Histogram of Antenna 1")
+plt.hist(ad0, bins=256) 
+plt.title("Histogram of Antenna 0")
 
 plt.figure(8)
 plt.title('Adc Data Antenna 2')
@@ -264,7 +244,7 @@ plt.hist(ad2, bins=256)
 plt.title("Histogram of Antenna 2")
 
 plt.figure(10) 
-plt.title('Correlation Coefficient')
-plt.plot(f,corrco,'m')
+plt.title('Correlation Coefficient of Antenna 0 & 2')
+plt.plot(f,corrco02,'m')
 plt.grid(True)
 plt.show()
