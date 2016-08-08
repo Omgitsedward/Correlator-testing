@@ -1,8 +1,7 @@
-#Clk Freq = 250 MHz, Input signal freq = 75 Mhz at 0.0 dBm
+#Clk Freq = 250 MHz, Input signal freq = 75 Mhz at -6.0 dBm
 #Using 12-input SNAP Board w/ RaspberryPi 
-#10 stage biplex fft
+#10 stage fft_biplex_real_2x
 #4-tap 1024-point polyphase filter bank
-#ADC stats added, host selection added
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
@@ -28,7 +27,7 @@ def splicing(x):
 		z += 2
 	return np.asarray(temp)
 
-#Merges real and imaginary parts of Correlation data into a single number
+#Merges real and imaginary parts of Cross Correlation data into a single number
 def merge(x,y):
 	temp = []
 	w = 0
@@ -79,6 +78,7 @@ while s.read_int('acc_num') == acc_num:
 	time.sleep(0.1)
 print acc_num
 print "Done"
+
 #--------------------------------------------------------------------------------------------------------------------------------------
 overflow = s.read_int('overflow')
 print overflow
