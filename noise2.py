@@ -32,25 +32,6 @@ def splicing(x):
 		z += 2
 	return np.asarray(temp)
 
-#Controls number of accumulations with n
-def accumulation(n):
-	k = 0
-	while k < n:
-		p = 0
-		s.write_int('trig',0)
-		s.write_int('trig',1)
-		s.write_int('trig',0)
-		if k == n/4:
-			print "Quarter way"
-		elif k == n/2:
-			print "Half way"
-		elif k == n*3/4:
-			print "3/4 of the way"
-		while p < 8192:
-			p += 1
-		k += 1
-
-
 #Merges real and imaginary parts of Correlation data into a single number
 def merge(x,y):
 	temp = []
