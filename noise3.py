@@ -86,13 +86,13 @@ print overflow
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Reading Adc Data"
 #Adc Data Antenna A
-ad1 = np.asarray(struct.unpack('>65536b',s.read('adc_data0',65536)))
-sigma1 = np.sqrt(np.var(ad1))
-print "Hey this one is sigma antenna 1"
-print sigma1
-rms1 = np.sqrt(np.mean(np.square(ad1)))
-print "Hey this one is rms antenna 1"
-print rms1
+ad0 = np.asarray(struct.unpack('>65536b',s.read('adc_data0',65536)))
+sigma0 = np.sqrt(np.var(ad0))
+print "Hey this one is sigma antenna 0"
+print sigma0
+rms0 = np.sqrt(np.mean(np.square(ad0)))
+print "Hey this one is rms antenna 0"
+print rms0
 
 #Adc Data Antenna B
 ad2 = np.asarray(struct.unpack('>65536b',s.read('adc_data2',65536)))
@@ -178,31 +178,31 @@ plt.grid(True)
 
 #Correlation Plots
 plt.figure(3)
-plt.title('Autocorrelation of Antenna A')
+plt.title('Autocorrelation of Antenna 0')
 
 plt.subplot(211)
-plt.title('Magnitude Response of AC of A')
+plt.title('Magnitude Response of AC of 0')
 plt.plot(f,magac0,'c')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
-plt.title('Phase Response of AC of A')
+plt.title('Phase Response of AC of 0')
 plt.plot(f,phaseac0,'c')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
 plt.figure(4)
-plt.title('Autocorrelation of Antenna B')
+plt.title('Autocorrelation of Antenna 2')
 
 plt.subplot(211)
-plt.title('Magnitude Response of AC of B')
+plt.title('Magnitude Response of AC of 2')
 plt.plot(f,magac2,'g')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
-plt.title('Phase Response of AC of B')
+plt.title('Phase Response of AC of 2')
 plt.plot(f,phaseac2,'g')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
