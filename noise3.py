@@ -78,25 +78,31 @@ acc_num = s.read_int('acc_num')
 while s.read_int('acc_num') == acc_num:
 	time.sleep(0.1)
 print acc_num
-
+print "Done"
 #--------------------------------------------------------------------------------------------------------------------------------------
 overflow = s.read_int('overflow')
 print overflow
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-print "Reading Adc Data"
-#Adc Data Antenna A
+#Reading Data from BRAM Blocks
 ad0 = np.asarray(struct.unpack('>65536b',s.read('adc_data0',65536)))
+ad2 = np.asarray(struct.unpack('>65536b',s.read('adc_data2',65536)))
+fft0 = np.asarray(struct.unpack('>2048l',s.read('fft_data0',8192)))
+fft2 = np.asarray(struct.unpack('>2048l',s.read('fft_data2',8192)))
+ac0 = np.asarray(struct.unpack('>512q',s.read('ac_a0_real',4096)))
+ac2 = np.asarray(struct.unpack('>512q',s.read('ac_a2_real',4096)))
+cc02r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_real',4096)))
+cc02i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_imag',4096)))
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+#Adc Data Antenna 0
 sigma0 = np.sqrt(np.var(ad0))
 print "Hey this one is sigma antenna 0"
 print sigma0
 rms0 = np.sqrt(np.mean(np.square(ad0)))
 print "Hey this one is rms antenna 0"
 print rms0
-
-#Adc Data Antenna B
-ad2 = np.asarray(struct.unpack('>65536b',s.read('adc_data2',65536)))
-print "Done"
+#Adc Data Antenna 2
 sigma2 = np.sqrt(np.var(ad2))
 print "Hey this one is sigma antenna 2"
 print sigma2
@@ -105,46 +111,32 @@ print "Hey this one is rms antenna 2"
 print rms2
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-print "Reading Fft Data"
-#Fft Data Antenna A
-fft0 = np.asarray(struct.unpack('>2048l',s.read('fft_data0',8192)))
+#Fft Data Antenna 0
 fft0l = list(fft0)
 fd0 = splicing(fft0l)
 magfd0 = abs(fd0)
 phasefd0 = np.angle(fd0)*180/np.pi
-
-#Fft Data Antenna B
-fft2 = np.asarray(struct.unpack('>2048l',s.read('fft_data2',8192)))
+#Fft Data Antenna 2
 fft2l = list(fft2)
 fd2 = splicing(fft2l)
 magfd2 = abs(fd2)
 phasefd2 = np.angle(fd2)*180/np.pi
-print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-print "Reading Correlation Data"
 #Autocorrelation of A
-ac0 = np.asarray(struct.unpack('>512q',s.read('ac_a0_real',4096)))
 magac0 = abs(ac0)
 phaseac0 = np.angle(ac0)*180/np.pi
-
 #Autocorrelation of B
-ac2 = np.asarray(struct.unpack('>512q',s.read('ac_a2_real',4096)))
 magac2 = abs(ac2)
 phaseac2 = np.angle(ac2)*180/np.pi
-
 #Cross Correlation of a and b
-cc02r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_real',4096)))
-cc02i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_imag',4096)))
 cc02rl = list(cc02r)
 cc02il = list(cc02i)
 cc02 = merge(cc02rl,cc02il)
 magcc02 = abs(cc02)
 phasecc02 = np.angle(cc02)*180/np.pi
-
+#Correlation Coefficient
 corrco02 = magcc02 / np.sqrt(magac0*magac2)
-
-print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Plotting Data"
@@ -222,7 +214,7 @@ plt.plot(f,phasecc02,'r')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
-#ADC Data plots
+#ADC Data & Stat plots
 plt.figure(6)
 plt.title('Adc Data Antenna 0')
 plt.plot(t,ad0,'c-')
@@ -243,6 +235,7 @@ plt.figure(9)
 plt.hist(ad2, bins=256) 
 plt.title("Histogram of Antenna 2")
 
+#Correlation Coefficient Plot
 plt.figure(10) 
 plt.title('Correlation Coefficient of Antenna 0 & 2')
 plt.plot(f,corrco02,'m')
