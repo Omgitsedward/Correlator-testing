@@ -86,30 +86,12 @@ print overflow
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Reading Data from BRAM Blocks
-ad0 = np.asarray(struct.unpack('>65536b',s.read('adc_data0',65536)))
-ad2 = np.asarray(struct.unpack('>65536b',s.read('adc_data2',65536)))
 fft0 = np.asarray(struct.unpack('>2048l',s.read('fft_data0',8192)))
 fft2 = np.asarray(struct.unpack('>2048l',s.read('fft_data2',8192)))
 ac0 = np.asarray(struct.unpack('>512q',s.read('ac_a0_real',4096)))
 ac2 = np.asarray(struct.unpack('>512q',s.read('ac_a2_real',4096)))
 cc02r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_real',4096)))
 cc02i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_imag',4096)))
-
-#--------------------------------------------------------------------------------------------------------------------------------------
-#Adc Data Antenna 0
-sigma0 = np.sqrt(np.var(ad0))
-print "Hey this one is sigma antenna 0"
-print sigma0
-rms0 = np.sqrt(np.mean(np.square(ad0)))
-print "Hey this one is rms antenna 0"
-print rms0
-#Adc Data Antenna 2
-sigma2 = np.sqrt(np.var(ad2))
-print "Hey this one is sigma antenna 2"
-print sigma2
-rms2 = np.sqrt(np.mean(np.square(ad2)))
-print "Hey this one is rms antenna 2"
-print rms2
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Fft Data Antenna 0
@@ -215,29 +197,8 @@ plt.plot(f,phasecc02,'r')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
-#ADC Data & Stat plots
-plt.figure(6)
-plt.title('Adc Data Antenna 0')
-plt.plot(t,ad0,'c-')
-plt.axis([0,65536,-136,135])
-plt.grid(True)
-
-plt.figure(7)
-plt.hist(ad0, bins=256) 
-plt.title("Histogram of Antenna 0")
-
-plt.figure(8)
-plt.title('Adc Data Antenna 2')
-plt.plot(t,ad2, 'g-')
-plt.axis([0,65536,-136,135])
-plt.grid(True)
-
-plt.figure(9)
-plt.hist(ad2, bins=256) 
-plt.title("Histogram of Antenna 2")
-
 #Correlation Coefficient Plot
-plt.figure(10) 
+plt.figure(6) 
 plt.title('Correlation Coefficient of Antenna 0 & 2')
 plt.plot(f,corrco02,'m')
 plt.grid(True)
