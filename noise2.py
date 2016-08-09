@@ -2,6 +2,7 @@
 #Using 12-input SNAP Board w/ RaspberryPi 
 #10 stage fft_biplex 
 #4-tap 1024-point polyphase filter bank
+#This one only utilizes 2 inputs from the 12 available to correlate
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
