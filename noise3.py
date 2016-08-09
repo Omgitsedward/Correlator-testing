@@ -4,7 +4,7 @@
 #4-tap 1024-point polyphase filter bank
 #This one will Correlate all 12 inputs at the same time
 #2 input worked (noise3_2016-8-9-1406.bof)
-#Currently testing 4 input 1 ADC (noise3_2016-8-9-1501.bof)
+#4 input 1 ADC worked (noise3_2016-8-9-1501.bof)
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
