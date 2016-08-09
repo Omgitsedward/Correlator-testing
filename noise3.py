@@ -70,6 +70,7 @@ s.write_int('trig',0)
 #Extra accumulations done before reading data from BRAMs for saftey of data
 #It tosses out unknown initial state junk values that would mess up data.
 #Should be working by final accumulation transition to read BRAMs
+#Dont freakout if the numbers are big or negative, only thing that matters is that acc_num goes up by 1 each time it's printed.
 acc_num = s.read_int('acc_num')
 while s.read_int('acc_num') == acc_num:
 	time.sleep(0.1)
