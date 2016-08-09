@@ -32,7 +32,7 @@ def splicing(x):
 def merge(x,y):
 	temp = []
 	w = 0
-	while w < 1024:
+	while w < 512:
 		temp.append(x[w] + y[w]*1j)
 		w += 1
 	return np.asarray(temp)
