@@ -21,15 +21,6 @@ shift = args.shift
 length = args.length 
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-#Merges real and imaginary parts of fft data into a single number
-def splicing(x):
-	temp = []
-	z = 0
-	while z < 2048:
-		temp.append(x[z] + x[z+1]*1j)
-		z += 2
-	return np.asarray(temp)
-
 #Merges real and imaginary parts of Cross Correlation data into a single number
 def merge(x,y):
 	temp = []
@@ -111,16 +102,12 @@ cc23i = np.asarray(struct.unpack('>512q',s.read('cc_a2_a3_imag',4096)))
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Autocorrelation of 0
 magac0 = abs(ac0)
-phaseac0 = np.angle(ac0)*180/np.pi
 #Autocorrelation of 1
 magac1 = abs(ac1)
-phaseac1 = np.angle(ac1)*180/np.pi
 #Autocorrelation of 2
 magac2 = abs(ac2)
-phaseac2 = np.angle(ac2)*180/np.pi
 #Autocorrelation of 3
 magac3 = abs(ac3)
-phaseac3 = np.angle(ac3)*180/np.pi
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Cross Correlation of 0 and 1
@@ -165,54 +152,31 @@ print "Plotting Data"
 #Autocorrelation Plots
 plt.figure(1)
 plt.title('Autocorrelation of Antenna 0')
-plt.subplot(211)
 plt.title('Magnitude Response of AC of 0')
 plt.plot(fn,magac0,'g')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
-plt.subplot(212)
-plt.title('Phase Response of AC of 0')
-plt.plot(fn,phaseac0,'g')
-plt.ylabel('Phase in Degrees')
-plt.grid(True)
 
 plt.figure(2)
 plt.title('Autocorrelation of Antenna 1')
-plt.subplot(211)
 plt.title('Magnitude Response of AC of 1')
 plt.plot(fn,magac1,'r')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
-plt.subplot(212)
-plt.title('Phase Response of AC of 1')
-plt.plot(fn,phaseac1,'r')
-plt.ylabel('Phase in Degrees')
-plt.grid(True)
 
 plt.figure(3)
 plt.title('Autocorrelation of Antenna 2')
-plt.subplot(211)
 plt.title('Magnitude Response of AC of 2')
 plt.plot(fn,magac2,'c')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
-plt.subplot(212)
-plt.title('Phase Response of AC of 2')
-plt.plot(fn,phaseac2,'c')
-plt.ylabel('Phase in Degrees')
-plt.grid(True)
+
 
 plt.figure(4)
 plt.title('Autocorrelation of Antenna 3')
-plt.subplot(211)
 plt.title('Magnitude Response of AC of 3')
 plt.plot(fn,magac3,'y')
 plt.ylabel('Power (Arbitrary Units)')
-plt.grid(True)
-plt.subplot(212)
-plt.title('Phase Response of AC of 3')
-plt.plot(fn,phaseac3,'y')
-plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
