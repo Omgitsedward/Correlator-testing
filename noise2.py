@@ -261,7 +261,6 @@ plt.grid(True)
 plt.figure(9)
 plt.hist(ad2, bins=256) 
 plt.title("Histogram of Antenna 2")
-plt.show()
 
 plt.figure(10) 
 plt.title('Correlation Coefficient')
