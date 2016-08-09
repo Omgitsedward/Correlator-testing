@@ -50,6 +50,7 @@ else:
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 f = np.linspace(0,1023,1024)
+fc = np.linspace(0,511,512)
 t = np.linspace(0,65535,65536)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
@@ -157,13 +158,13 @@ plt.title('Autocorrelation of Antenna 0')
 
 plt.subplot(211)
 plt.title('Magnitude Response of AC of 0')
-plt.plot(f,magac0,'c')
+plt.plot(fn,magac0,'c')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
 plt.title('Phase Response of AC of 0')
-plt.plot(f,phaseac0,'c')
+plt.plot(fn,phaseac0,'c')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
@@ -172,13 +173,13 @@ plt.title('Autocorrelation of Antenna 2')
 
 plt.subplot(211)
 plt.title('Magnitude Response of AC of 2')
-plt.plot(f,magac2,'g')
+plt.plot(fn,magac2,'g')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
 plt.title('Phase Response of AC of 2')
-plt.plot(f,phaseac2,'g')
+plt.plot(fn,phaseac2,'g')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
@@ -187,19 +188,19 @@ plt.title('Cross Correlation of Antennas 0 & 2')
 
 plt.subplot(211)
 plt.title('Magnitude Response of CC of 0 & 2')
-plt.plot(f,magcc02,'r')
+plt.plot(fn,magcc02,'r')
 plt.ylabel('Power (Arbitrary Units)')
 plt.grid(True)
 
 plt.subplot(212)
 plt.title('Phase Response of CC of 0 & 2')
-plt.plot(f,phasecc02,'r')
+plt.plot(fn,phasecc02,'r')
 plt.ylabel('Phase in Degrees')
 plt.grid(True)
 
 #Correlation Coefficient Plot
 plt.figure(6) 
 plt.title('Correlation Coefficient of Antenna 0 & 2')
-plt.plot(f,corrco02,'m')
+plt.plot(fn,corrco02,'m')
 plt.grid(True)
 plt.show()
