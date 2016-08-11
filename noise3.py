@@ -5,6 +5,7 @@
 #This one will Correlate all 12 inputs at the same time
 #2 input worked (noise3_2016-8-9-1406.bof)
 #4 input 1 ADC worked (noise3_2016-8-9-1501.bof)
+#In Progress: expansion from 4 to 12 input utilization
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
