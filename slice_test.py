@@ -1,4 +1,4 @@
-
+#used for various attempts to reduce resources to allow for 12 input correlation to fit on SNAP Board
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
 #--------------------------------------------------------------------------------------------------------------------------------------
