@@ -64,12 +64,10 @@ print overflow
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Reading Data from BRAM Blocks
-ac0 = np.asarray(struct.unpack('>1024q',s.read('ac_a0_a2_real',8192)))
-ac1 = np.asarray(struct.unpack('>1024q',s.read('ac_a1_a3_real',8192)))
-ac2 = ac0[512:1024]
-ac3 = ac1[512:1024]
-ac0 = ac0[0:512]
-ac1 = ac1[0:512]
+ac0 = np.asarray(struct.unpack('>512l',s.read('ac_a0_real',4096)))
+ac1 = np.asarray(struct.unpack('>512l',s.read('ac_a1_real',4096)))
+ac2 = np.asarray(struct.unpack('>512l',s.read('ac_a2_real',4096)))
+ac3 = np.asarray(struct.unpack('>512l',s.read('ac_a3_real',4096)))
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Autocorrelation of 0
