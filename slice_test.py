@@ -35,10 +35,10 @@ print "Done"
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Starting accumulation process"
 s.write_int('acc_len',length)
-s.write_int('scale0',100000)
-s.write_int('scale1',100000)
-s.write_int('scale2',100000)
-s.write_int('scale3',100000)
+s.write_int('scale0',1000000)
+s.write_int('scale1',1000000)
+s.write_int('scale2',1000000)
+s.write_int('scale3',1000000)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 s.write_int('trig',0)
