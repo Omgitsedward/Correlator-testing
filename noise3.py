@@ -1,4 +1,5 @@
 #Eddie Toral
+#CAMPARE 2016 Summer Research Undergrad
 #August 15th 2016
 #12-input Correlator for SNAP Board
 #
