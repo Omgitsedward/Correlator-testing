@@ -1,11 +1,15 @@
-#Clk Freq = 250 MHz, Input signal freq = 75 Mhz at -6.0 dBm
+#Testing info:
+#		Clk Freq = 250 MHz, Input signal freq = 75 Mhz at -6.0 dBm 
+#Noise sources: 
+#		Amps in series for one source, L-band generator for the other. 
+#		Couplers used in reverse to combine tone with noise to use for testing.
 #Using 12-input SNAP Board w/ RaspberryPi 
 #10 stage fft_biplex_real_2x
-#4-tap 1024-point polyphase filter bank
+#4-tap 1024 polyphase filter bank
 #This one will Correlate all 12 inputs at the same time
-#2 input worked (noise3_2016-8-9-1406.bof)
-#4 input 1 ADC worked (noise3_2016-8-9-1501.bof)
-#In Progress: expansion from 4 to 12 input utilization
+#2 input worked (noise3_2016-8-9_1406.bof)
+#4 input 1 ADC worked (noise3_2016-8-9_1501.bof)
+#12 input, 3 ADC works (noise3_2016-8-14_.bof)
 
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
@@ -44,7 +48,6 @@ else:
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 fn = np.linspace(0,511,512)
-t = np.linspace(0,65535,65536)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Setting Shift value"
@@ -56,6 +59,7 @@ print "Starting accumulation process"
 s.write_int('acc_len',length)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
+#Start Data Processing & Capture
 s.write_int('trig',0)
 s.write_int('trig',1)
 s.write_int('trig',0)
@@ -78,11 +82,17 @@ print acc_num
 print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
+#If FFT Biplex block overflows, the output here would be 1
 overflow = s.read_int('overflow')
 print overflow
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Reading Data from BRAM Blocks
+#Antenna names correspond to the antenna names for the inputs on the SNAP board.
+#		ie. ADC0 Board input -> ac0,a0, etc. in the following lines
+#Cross Correlations will have the naming convention of ccantenna_Aantenna_B
+#		ie. Cross correlation of ADC0 and ADC3 board inputs will be named cc03, etc.
+
 #Autocorrelation Data
 ac0 = np.asarray(struct.unpack('>512l',s.read('ac_a0_real',2048)))
 ac1 = np.asarray(struct.unpack('>512l',s.read('ac_a1_real',2048)))
@@ -252,6 +262,22 @@ magac1 = abs(ac1)
 magac2 = abs(ac2)
 #Autocorrelation of 3
 magac3 = abs(ac3)
+#Autocorrelation of 4
+magac4 = abs(ac4)
+#Autocorrelation of 5
+magac5 = abs(ac5)
+#Autocorrelation of 6
+magac6 = abs(ac6)
+#Autocorrelation of 7
+magac7 = abs(ac7)
+#Autocorrelation of 8
+magac8 = abs(ac8)
+#Autocorrelation of 9
+magac9 = abs(ac9)
+#Autocorrelation of 10
+magac10 = abs(ac10)
+#Autocorrelation of 11
+magac11 = abs(ac11)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Cross Correlation of 0 and 1
@@ -290,6 +316,11 @@ cc23il = list(cc23i)
 cc23 = merge(cc23rl,cc23il)
 magcc23 = abs(cc23)
 phasecc23 = np.angle(cc23)*180/np.pi
+
+
+
+
+
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Plotting Data"
