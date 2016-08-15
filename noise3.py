@@ -83,22 +83,22 @@ print overflow
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Reading Data from BRAM Blocks
-ac0 = np.asarray(struct.unpack('>512q',s.read('ac_a0_real',4096)))
-ac1 = np.asarray(struct.unpack('>512q',s.read('ac_a1_real',4096)))
-ac2 = np.asarray(struct.unpack('>512q',s.read('ac_a2_real',4096)))
-ac3 = np.asarray(struct.unpack('>512q',s.read('ac_a3_real',4096)))
-cc01r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a1_real',4096)))
-cc01i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a1_imag',4096)))
-cc02r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_real',4096)))
-cc02i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a2_imag',4096)))
-cc03r = np.asarray(struct.unpack('>512q',s.read('cc_a0_a3_real',4096)))
-cc03i = np.asarray(struct.unpack('>512q',s.read('cc_a0_a3_imag',4096)))
-cc12r = np.asarray(struct.unpack('>512q',s.read('cc_a1_a2_real',4096)))
-cc12i = np.asarray(struct.unpack('>512q',s.read('cc_a1_a2_imag',4096)))
-cc13r = np.asarray(struct.unpack('>512q',s.read('cc_a1_a3_real',4096)))
-cc13i = np.asarray(struct.unpack('>512q',s.read('cc_a1_a3_imag',4096)))
-cc23r = np.asarray(struct.unpack('>512q',s.read('cc_a2_a3_real',4096)))
-cc23i = np.asarray(struct.unpack('>512q',s.read('cc_a2_a3_imag',4096)))
+ac0 = np.asarray(struct.unpack('>512l',s.read('ac_a0_real',2048)))
+ac1 = np.asarray(struct.unpack('>512l',s.read('ac_a1_real',2048)))
+ac2 = np.asarray(struct.unpack('>512l',s.read('ac_a2_real',2048)))
+ac3 = np.asarray(struct.unpack('>512l',s.read('ac_a3_real',2048)))
+cc01r = np.asarray(struct.unpack('>512l',s.read('cc_a0_a1_real',2048)))
+cc01i = np.asarray(struct.unpack('>512l',s.read('cc_a0_a1_imag',2048)))
+cc02r = np.asarray(struct.unpack('>512l',s.read('cc_a0_a2_real',2048)))
+cc02i = np.asarray(struct.unpack('>512l',s.read('cc_a0_a2_imag',2048)))
+cc03r = np.asarray(struct.unpack('>512l',s.read('cc_a0_a3_real',2048)))
+cc03i = np.asarray(struct.unpack('>512l',s.read('cc_a0_a3_imag',2048)))
+cc12r = np.asarray(struct.unpack('>512l',s.read('cc_a1_a2_real',2048)))
+cc12i = np.asarray(struct.unpack('>512l',s.read('cc_a1_a2_imag',2048)))
+cc13r = np.asarray(struct.unpack('>512l',s.read('cc_a1_a3_real',2048)))
+cc13i = np.asarray(struct.unpack('>512l',s.read('cc_a1_a3_imag',2048)))
+cc23r = np.asarray(struct.unpack('>512l',s.read('cc_a2_a3_real',2048)))
+cc23i = np.asarray(struct.unpack('>512l',s.read('cc_a2_a3_imag',2048)))
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Autocorrelation of 0
