@@ -17,10 +17,12 @@
 #	2 input worked (noise3_2016-8-9_1406.bof)
 #	4 input 1 ADC worked (noise3_2016-8-9_1501.bof)
 #	12 input, 3 ADC works (noise3_2016-8-14_.bof)
-
+#--------------------------------------------------------------------------------------------------------------------------------------
+#Import necessary Libraries
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
 
 #--------------------------------------------------------------------------------------------------------------------------------------
+#To incorporate options chosen w/ host
 from argparse import ArgumentParser
 p = ArgumentParser(description = 'python noise3.py [options] ')
 p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
@@ -43,6 +45,7 @@ def merge(x,y):
 	return np.asarray(temp)
 	
 #--------------------------------------------------------------------------------------------------------------------------------------
+#Establishing a connection to the FPGA from your computer
 print "Connecting to Fpga"
 s = corr.katcp_wrapper.FpgaClient(host,7147,timeout = 10)
 time.sleep(1)
