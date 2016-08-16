@@ -6,6 +6,7 @@
 #	75.0 MHz single tone from input levels +12dBm to -36.0 dBm.
 #	Direct connection to input of SNAP Board, no attenuators or filters used during testing.
 #	Only 1 antenna at a time, selectable by [option] -a to be selected when running script
+#	adc_stats_2016-8-16_1606.bof
 
 from argparse import ArgumentParser
 p = ArgumentParser(description = 'python adc_stats.py [options] ')
