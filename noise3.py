@@ -1,7 +1,8 @@
-#Eddie Toral
-#CAMPARE 2016 Summer Research Undergrad
-#August 15th 2016
-#12-input Correlator for SNAP Board
+#	Eddie Toral
+#	CAMPARE 2016 Summer Research Undergrad
+#	August 15th 2016
+#
+#	12-input Correlator for SNAP Board
 #
 #	Testing info:
 #		Clk Freq = 250 MHz, Input signal freq = 75 Mhz at -6.0 dBm 
@@ -282,7 +283,7 @@ cc1011i = np.asarray(struct.unpack('>512l',s.read('cc_a10_a11_imag',2048)))
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Determination of the Magnitude Responses of the Autocorrelations of each input
 #Phase Responses not solved for to save BRAM Space (no accumulation & storage of imaginary data stream)
-#as Phase Responses are 0 for Autocorrelations
+#Phase Responses are 0 for Autocorrelations
 
 #Autocorrelation of 0
 magac0 = abs(ac0)
@@ -311,7 +312,7 @@ magac11 = abs(ac11)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Recombing real and imaginary parts of the Accumulated Cross Correlations 
-#& Solving for Magnitudes and Phase Responses of the Cross Correlations
+#Solving for Magnitudes and Phase Responses of the Cross Correlations
 
 #Cross Correlation of 0 and 1
 cc01rl = list(cc01r)
@@ -331,6 +332,55 @@ cc03il = list(cc03i)
 cc03 = merge(cc03rl,cc03il)
 magcc03 = abs(cc03)
 phasecc03 = np.angle(cc03)*180/np.pi
+#Cross Correlation of 0 and 4
+cc04rl = list(cc04r)
+cc04il = list(cc04i)
+cc04 = merge(cc04rl,cc04il)
+magcc04 = abs(cc04)
+phasecc04 = np.angle(cc04)*180/np.pi
+#Cross Correlation of 0 and 5
+cc05rl = list(cc05r)
+cc05il = list(cc05i)
+cc05 = merge(cc05rl,cc05il)
+magcc05 = abs(cc05)
+phasecc05 = np.angle(cc05)*180/np.pi
+#Cross Correlation of 0 and 6
+cc06rl = list(cc06r)
+cc06il = list(cc03i)
+cc06 = merge(cc06rl,cc06il)
+magcc06 = abs(cc06)
+phasecc06 = np.angle(cc06)*180/np.pi
+#Cross Correlation of 0 and 7
+cc07rl = list(cc07r)
+cc07il = list(cc07i)
+cc07 = merge(cc07rl,cc07il)
+magcc07 = abs(cc07)
+phasecc07 = np.angle(cc07)*180/np.pi
+#Cross Correlation of 0 and 8
+cc08rl = list(cc08r)
+cc08il = list(cc08i)
+cc08 = merge(cc08rl,cc08il)
+magcc08 = abs(cc08)
+phasecc08 = np.angle(cc08)*180/np.pi
+#Cross Correlation of 0 and 9
+cc09rl = list(cc09r)
+cc09il = list(cc09i)
+cc09 = merge(cc09rl,cc09il)
+magcc09 = abs(cc09)
+phasecc09 = np.angle(cc09)*180/np.pi
+#Cross Correlation of 0 and 10
+cc010rl = list(cc010r)
+cc010il = list(cc010i)
+cc010 = merge(cc010rl,cc010il)
+magcc010 = abs(cc010)
+phasecc010 = np.angle(cc010)*180/np.pi
+#Cross Correlation of 0 and 11
+cc011rl = list(cc011r)
+cc011il = list(cc011i)
+cc011 = merge(cc011rl,cc011il)
+magcc011 = abs(cc011)
+phasecc011 = np.angle(cc011)*180/np.pi
+
 #Cross Correlation of 1 and 2
 cc12rl = list(cc12r)
 cc12il = list(cc12i)
@@ -343,14 +393,245 @@ cc13il = list(cc13i)
 cc13 = merge(cc13rl,cc13il)
 magcc13 = abs(cc13)
 phasecc13 = np.angle(cc13)*180/np.pi
+#Cross Correlation of 1 and 4
+cc14rl = list(cc14r)
+cc14il = list(cc14i)
+cc14 = merge(cc14rl,cc14il)
+magcc14 = abs(cc14)
+phasecc14 = np.angle(cc14)*180/np.pi
+#Cross Correlation of 1 and 5
+cc15rl = list(cc15r)
+cc15il = list(cc15i)
+cc15 = merge(cc15rl,cc15il)
+magcc15 = abs(cc15)
+phasecc15 = np.angle(cc15)*180/np.pi
+#Cross Correlation of 1 and 6
+cc16rl = list(cc16r)
+cc16il = list(cc16i)
+cc16 = merge(cc16rl,cc16il)
+magcc16 = abs(cc16)
+phasecc16 = np.angle(cc16)*180/np.pi
+#Cross Correlation of 1 and 7
+cc17rl = list(cc17r)
+cc17il = list(cc17i)
+cc17 = merge(cc17rl,cc17il)
+magcc17 = abs(cc17)
+phasecc17 = np.angle(cc17)*180/np.pi
+#Cross Correlation of 1 and 8
+cc18rl = list(cc18r)
+cc18il = list(cc18i)
+cc18 = merge(cc18rl,cc18il)
+magcc18 = abs(cc18)
+phasecc18 = np.angle(cc18)*180/np.pi
+#Cross Correlation of 1 and 9
+cc19rl = list(cc19r)
+cc19il = list(cc19i)
+cc19 = merge(cc19rl,cc19il)
+magcc19 = abs(cc19)
+phasecc19 = np.angle(cc19)*180/np.pi
+#Cross Correlation of 1 and 10
+cc110rl = list(cc110r)
+cc110il = list(cc110i)
+cc110 = merge(cc110rl,cc110il)
+magcc110 = abs(cc110)
+phasecc110 = np.angle(cc110)*180/np.pi
+#Cross Correlation of 1 and 11
+cc111rl = list(cc111r)
+cc111il = list(cc111i)
+cc111 = merge(cc111rl,cc111il)
+magcc111 = abs(cc111)
+phasecc111 = np.angle(cc11)*180/np.pi
+
 #Cross Correlation of 2 and 3
 cc23rl = list(cc23r)
 cc23il = list(cc23i)
 cc23 = merge(cc23rl,cc23il)
 magcc23 = abs(cc23)
 phasecc23 = np.angle(cc23)*180/np.pi
+#Cross Correlation of 2 and 4
+cc24rl = list(cc24r)
+cc24il = list(cc24i)
+cc24 = merge(cc24rl,cc24il)
+magcc24 = abs(cc24)
+phasecc24 = np.angle(cc24)*180/np.pi
+#Cross Correlation of 2 and 5
+cc25rl = list(cc25r)
+cc25il = list(cc25i)
+cc25 = merge(cc25rl,cc25il)
+magcc25 = abs(cc25)
+phasecc25 = np.angle(cc25)*180/np.pi
+#Cross Correlation of 2 and 6
+cc26rl = list(cc26r)
+cc26il = list(cc26i)
+cc26 = merge(cc26rl,cc26il)
+magcc26 = abs(cc26)
+phasecc26 = np.angle(cc26)*180/np.pi
+#Cross Correlation of 2 and 7
+cc27rl = list(cc27r)
+cc27il = list(cc27i)
+cc27 = merge(cc27rl,cc27il)
+magcc27 = abs(cc27)
+phasecc27 = np.angle(cc27)*180/np.pi
+#Cross Correlation of 2 and 8
+cc28rl = list(cc28r)
+cc28il = list(cc28i)
+cc28 = merge(cc28rl,cc28il)
+magcc28 = abs(cc28)
+phasecc28 = np.angle(cc28)*180/np.pi
+#Cross Correlation of 2 and 9
+cc29rl = list(cc29r)
+cc29il = list(cc29i)
+cc29 = merge(cc29rl,cc29il)
+magcc29 = abs(cc29)
+phasecc29 = np.angle(cc29)*180/np.pi
+#Cross Correlation of 2 and 10
+cc210rl = list(cc210r)
+cc210il = list(cc210i)
+cc210 = merge(cc210rl,cc210il)
+magcc210 = abs(cc210)
+phasecc210 = np.angle(cc210)*180/np.pi
+#Cross Correlation of 2 and 11
+cc211rl = list(cc211r)
+cc211il = list(cc211i)
+cc211 = merge(cc211rl,cc211il)
+magcc211 = abs(cc211)
+phasecc211 = np.angle(cc211)*180/np.pi
 
+#Cross Correlation of 3 and 4
+cc34rl = list(cc34r)
+cc34il = list(cc34i)
+cc34 = merge(cc34rl,cc34il)
+magcc34 = abs(cc34)
+phasecc34 = np.angle(cc34)*180/np.pi
+#Cross Correlation of 3 and 5
+cc35rl = list(cc35r)
+cc35il = list(cc35i)
+cc35 = merge(cc35rl,cc35il)
+magcc35 = abs(cc35)
+phasecc35 = np.angle(cc35)*180/np.pi
+#Cross Correlation of 3 and 6
+cc36rl = list(cc36r)
+cc36il = list(cc36i)
+cc36 = merge(cc36rl,cc36il)
+magcc36 = abs(cc36)
+phasecc36 = np.angle(cc36)*180/np.pi
+#Cross Correlation of 3 and 7
+cc37rl = list(cc37r)
+cc37il = list(cc37i)
+cc37 = merge(cc37rl,cc37il)
+magcc37 = abs(cc37)
+phasecc37 = np.angle(cc37)*180/np.pi
+#Cross Correlation of 3 and 8
+cc38rl = list(cc38r)
+cc38il = list(cc38i)
+cc38 = merge(cc38rl,cc38il)
+magcc38 = abs(cc38)
+phasecc38 = np.angle(cc38)*180/np.pi
+#Cross Correlation of 3 and 9
+cc39rl = list(cc39r)
+cc39il = list(cc39i)
+cc39 = merge(cc39rl,cc39il)
+magcc39 = abs(cc39)
+phasecc39 = np.angle(cc39)*180/np.pi
+#Cross Correlation of 3 and 10
+cc310rl = list(cc310r)
+cc310il = list(cc310i)
+cc310 = merge(cc310rl,cc310il)
+magcc310 = abs(cc310)
+phasecc310 = np.angle(cc310)*180/np.pi
+#Cross Correlation of 3 and 11
+cc311rl = list(cc311r)
+cc311il = list(cc311i)
+cc311 = merge(cc311rl,cc311il)
+magcc311 = abs(cc311)
+phasecc311 = np.angle(cc311)*180/np.pi
 
+#Cross Correlation of 4 and 5
+cc45rl = list(cc45r)
+cc45il = list(cc45i)
+cc45 = merge(cc45rl,cc45il)
+magcc45 = abs(cc45)
+phasecc45 = np.angle(cc45)*180/np.pi
+#Cross Correlation of 4 and 6
+cc46rl = list(cc46r)
+cc46il = list(cc46i)
+cc46 = merge(cc46rl,cc46il)
+magcc46 = abs(cc46)
+phasecc46 = np.angle(cc46)*180/np.pi
+#Cross Correlation of 4 and 7
+cc47rl = list(cc47r)
+cc47il = list(cc47i)
+cc47 = merge(cc47rl,cc47il)
+magcc47 = abs(cc47)
+phasecc47 = np.angle(cc47)*180/np.pi
+#Cross Correlation of 4 and 8
+cc48rl = list(cc48r)
+cc48il = list(cc48i)
+cc48 = merge(cc48rl,cc48il)
+magcc48 = abs(cc48)
+phasecc48 = np.angle(cc48)*180/np.pi
+#Cross Correlation of 4 and 9
+cc49rl = list(cc49r)
+cc49il = list(cc49i)
+cc49 = merge(cc49rl,cc49il)
+magcc49 = abs(cc49)
+phasecc49 = np.angle(cc49)*180/np.pi
+#Cross Correlation of 4 and 10
+cc410rl = list(cc410r)
+cc410il = list(cc410i)
+cc410 = merge(cc410rl,cc410il)
+magcc410 = abs(cc410)
+phasecc410 = np.angle(cc410)*180/np.pi
+#Cross Correlation of 4 and 11
+cc411rl = list(cc411r)
+cc411il = list(cc411i)
+cc411 = merge(cc411rl,cc411il)
+magcc411 = abs(cc411)
+phasecc411 = np.angle(cc411)*180/np.pi
+
+#Cross Correlation of 5 and 6
+cc56rl = list(cc56r)
+cc56il = list(cc56i)
+cc56 = merge(cc56rl,cc56il)
+magcc56 = abs(cc56)
+phasecc56 = np.angle(cc56)*180/np.pi
+#Cross Correlation of 5 and 7
+cc57rl = list(cc57r)
+cc57il = list(cc57i)
+cc57 = merge(cc57rl,cc57il)
+magcc57 = abs(cc57)
+phasecc57 = np.angle(cc57)*180/np.pi
+#Cross Correlation of 5 and 8
+cc58rl = list(cc58r)
+cc58il = list(cc58i)
+cc58 = merge(cc58rl,cc58il)
+magcc58 = abs(cc58)
+phasecc58 = np.angle(cc58)*180/np.pi
+#Cross Correlation of 5 and 9
+cc59rl = list(cc59r)
+cc59il = list(cc59i)
+cc59 = merge(cc59rl,cc59il)
+magcc59 = abs(cc59)
+phasecc59 = np.angle(cc59)*180/np.pi
+#Cross Correlation of 5 and 10
+cc510rl = list(cc510r)
+cc510il = list(cc510i)
+cc510 = merge(cc510rl,cc510il)
+magcc510 = abs(cc510)
+phasecc510 = np.angle(cc510)*180/np.pi
+#Cross Correlation of 5 and 11
+cc511rl = list(cc511r)
+cc511il = list(cc511i)
+cc511 = merge(cc511rl,cc511il)
+magcc511 = abs(cc511)
+phasecc511 = np.angle(cc511)*180/np.pi
+
+#Cross Correlation of 5 and 6
+cc56rl = list(cc56r)
+cc56il = list(cc56i)
+cc56 = merge(cc56rl,cc56il)
+magcc56 = abs(cc56)
+phasecc56 = np.angle(cc56)*180/np.pi
 
 
 
