@@ -440,7 +440,7 @@ cc111rl = list(cc111r)
 cc111il = list(cc111i)
 cc111 = merge(cc111rl,cc111il)
 magcc111 = abs(cc111)
-phasecc111 = np.angle(cc11)*180/np.pi
+phasecc111 = np.angle(cc111)*180/np.pi
 
 #Cross Correlation of 2 and 3
 cc23rl = list(cc23r)
