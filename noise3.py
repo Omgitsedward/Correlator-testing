@@ -626,15 +626,101 @@ cc511 = merge(cc511rl,cc511il)
 magcc511 = abs(cc511)
 phasecc511 = np.angle(cc511)*180/np.pi
 
-#Cross Correlation of 5 and 6
-cc56rl = list(cc56r)
-cc56il = list(cc56i)
-cc56 = merge(cc56rl,cc56il)
-magcc56 = abs(cc56)
-phasecc56 = np.angle(cc56)*180/np.pi
+#Cross Correlation of 6 and 7
+cc67rl = list(cc67r)
+cc67il = list(cc67i)
+cc67 = merge(cc67rl,cc67il)
+magcc67 = abs(cc67)
+phasecc67 = np.angle(cc67)*180/np.pi
+#Cross Correlation of 6 and 8
+cc68rl = list(cc68r)
+cc68il = list(cc68i)
+cc68 = merge(cc68rl,cc68il)
+magcc68 = abs(cc68)
+phasecc68 = np.angle(cc68)*180/np.pi
+#Cross Correlation of 6 and 9
+cc69rl = list(cc69r)
+cc69il = list(cc69i)
+cc69 = merge(cc69rl,cc69il)
+magcc69 = abs(cc69)
+phasecc69 = np.angle(cc69)*180/np.pi
+#Cross Correlation of 6 and 10
+cc610rl = list(cc610r)
+cc610il = list(cc610i)
+cc610 = merge(cc610rl,cc610il)
+magcc610 = abs(cc610)
+phasecc610 = np.angle(cc610)*180/np.pi
+#Cross Correlation of 6 and 11
+cc611rl = list(cc611r)
+cc611il = list(cc611i)
+cc611 = merge(cc611rl,cc611il)
+magcc611 = abs(cc611)
+phasecc611 = np.angle(cc611)*180/np.pi
 
 
+#Cross Correlation of 7 and 8
+cc78rl = list(cc78r)
+cc78il = list(cc78i)
+cc78 = merge(cc78rl,cc78il)
+magcc78 = abs(cc78)
+phasecc78 = np.angle(cc78)*180/np.pi
+#Cross Correlation of 7 and 9
+cc79rl = list(cc79r)
+cc79il = list(cc79i)
+cc79 = merge(cc79rl,cc79il)
+magcc79 = abs(cc79)
+phasecc79 = np.angle(cc79)*180/np.pi
+#Cross Correlation of 7 and 10
+cc710rl = list(cc710r)
+cc710il = list(cc710i)
+cc710 = merge(cc710rl,cc710il)
+magcc710 = abs(cc710)
+phasecc710 = np.angle(cc710)*180/np.pi
+#Cross Correlation of 7 and 11
+cc711rl = list(cc711r)
+cc711il = list(cc711i)
+cc711 = merge(cc711rl,cc711il)
+magcc711 = abs(cc711)
+phasecc711 = np.angle(cc711)*180/np.pi
 
+#Cross Correlation of 8 and 9
+cc89rl = list(cc89r)
+cc89il = list(cc89i)
+cc89 = merge(cc89rl,cc89il)
+magcc89 = abs(cc89)
+phasecc89 = np.angle(cc89)*180/np.pi
+#Cross Correlation of 8 and 10
+cc810rl = list(cc810r)
+cc810il = list(cc810i)
+cc810 = merge(cc810rl,cc810il)
+magcc810 = abs(cc810)
+phasecc810 = np.angle(cc810)*180/np.pi
+#Cross Correlation of 8 and 11
+cc811rl = list(cc811r)
+cc811il = list(cc811i)
+cc811 = merge(cc811rl,cc811il)
+magcc811 = abs(cc811)
+phasecc811 = np.angle(cc811)*180/np.pi
+
+#Cross Correlation of 9 and 10
+cc910rl = list(cc910r)
+cc910il = list(cc910i)
+cc910 = merge(cc910rl,cc910il)
+magcc910 = abs(cc910)
+phasecc910 = np.angle(cc910)*180/np.pi
+#Cross Correlation of 9 and 11
+cc911rl = list(cc911r)
+cc911il = list(cc911i)
+cc911 = merge(cc911rl,cc911il)
+magcc911 = abs(cc911)
+phasecc911 = np.angle(cc911)*180/np.pi
+
+#Cross Correlation of 10 and 11
+cc1011rl = list(cc1011r)
+cc1011il = list(cc1011i)
+cc1011 = merge(cc1011rl,cc1011il)
+magcc1011 = abs(cc1011)
+phasecc1011 = np.angle(cc1011)*180/np.pi
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Plotting Data"
