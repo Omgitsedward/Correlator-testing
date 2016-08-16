@@ -14,10 +14,7 @@
 #	10 stage fft_biplex_real_2x
 #	4-tap 1024 polyphase filter bank
 #	Model & code will Correlate all 12 inputs at the same time
-#
-#	2 input worked (noise3_2016-8-9_1406.bof)
-#	4 input 1 ADC worked (noise3_2016-8-9_1501.bof)
-#	12 input, 3 ADC works (noise3_2016-8-14_.bof)
+#	12 input, 3 ADC works (noise3_2016-8-15_1450_.bof)
 #--------------------------------------------------------------------------------------------------------------------------------------
 #Import necessary Libraries
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
