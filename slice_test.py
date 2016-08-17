@@ -7,11 +7,13 @@ p = ArgumentParser(description = 'python splice_test.py [options] ')
 p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
 p.add_argument('-s', '--shift', dest = 'shift', type = int, default = 2047, help = 'set shift value for fft biplex block')
 p.add_argument('-l', '--length', dest = 'length', type = int, default = 2e6, help = 'set # of spectra to be accumulated')
+p.add_argument('-c', '--scale', dest = 'scale', type = int, default = 1000, help = 'scale coefficient')
 
 args = p.parse_args()
 host = args.host
 shift = args.shift
 length = args.length 
+scale = args.scale
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Connecting to Fpga"
@@ -35,10 +37,10 @@ print "Done"
 #--------------------------------------------------------------------------------------------------------------------------------------
 print "Starting accumulation process"
 s.write_int('acc_len',length)
-s.write_int('scale0',1.1)
-s.write_int('scale1',1.1)
-s.write_int('scale2',1.1)
-s.write_int('scale3',1.1)
+s.write_int('scale0',scale)
+s.write_int('scale1',scale)
+s.write_int('scale2',scale)
+s.write_int('scale3',scale)
 
 #--------------------------------------------------------------------------------------------------------------------------------------
 s.write_int('trig',0)
