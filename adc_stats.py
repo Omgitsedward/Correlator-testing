@@ -13,8 +13,12 @@ p = ArgumentParser(description = 'python adc_stats.py [options] ')
 p.add_argument('host', type = str, default = '10.0.1.217', help = 'Specify the host name')
 p.add_argument('-a', '--antenna', dest = 'antenna', type = int, default = 2047, help = 'antenna selection')
 
+args = p.parse_args()
+host = args.host
+antenna = args.antenna
+
 import corr, struct, numpy as np, matplotlib.pyplot as plt, time
-s = corr.katcp_wrapper.FpgaClient('10.0.1.217',7147,timeout = 10)
+s = corr.katcp_wrapper.FpgaClient(host,7147,timeout = 10)
 time.sleep(1)
 s.write_int('antenna',antenna)
 s.write_int('cnt_rst',0)
