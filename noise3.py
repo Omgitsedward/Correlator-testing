@@ -96,7 +96,7 @@ print acc_num
 print "Done"
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-#If FFT Biplex block overflows, the output here would be 1
+#If FFT Biplex block overflows, the output here would be non-zero
 overflow = s.read_int('overflow')
 print overflow
 
